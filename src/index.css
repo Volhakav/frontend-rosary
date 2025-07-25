@@ -1,0 +1,251 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(51, 51, 51, 0.87);
+  background-color: #fdf6e3;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ogólne ustawienia */
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #fdf6e3;
+  color: #333;
+}
+
+/* Layout główny */
+.layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* Nagłówek */
+header {
+  background-color: #ffcc70;
+  padding: 1.25rem;
+  text-align: center;
+  border-radius: 0.75rem;
+}
+
+header img.logo {
+  max-height: 5.625rem;
+  display: block;
+  margin: 0 auto 0.625rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Kontener główny */
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+  align-items: stretch; /* Dzięki temu nav i rosary-box są tej samej wysokości */
+}
+
+/* Sidebar */
+nav {
+  background-color: #ffe4a1;
+  padding: 0.9375rem;
+  border-radius: 0.75rem;
+  width: 12.5rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 1.1rem;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 0.625rem 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Główna zawartość */
+main {
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  flex-grow: 1;
+}
+
+/* Cytat dnia */
+.quote-of-the-day {
+  background-color: #fff8dc;
+  padding: 0.9375rem;
+  margin: 1.25rem 0;
+  font-style: italic;
+  border-radius: 0.75rem;
+}
+
+/* Quiz */
+.quiz-section {
+  background-color: #e0f7fa;
+  padding: 0.9375rem;
+  margin: 1.25rem 0;
+  border-radius: 0.75rem;
+}
+
+/* Przyciski */
+button {
+  background-color: #ffb347;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  color:#333
+}
+
+button:hover {
+  background-color: #ffa500;
+}
+
+/* Wideo */
+#myVideo {
+  margin: 0.625rem auto;
+  padding: 1.875rem;
+  text-align: center;
+}
+
+/* Zadanie na dziś */
+.daily-box {
+  margin: 0.625rem auto;
+  padding: 1.875rem;
+  background-color: #fff8dc;
+  border: 0.125rem dashed #d4af37;
+  border-radius: 0.625rem;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Tajemnica różańca */
+.rosary-box {
+  margin: 0;
+  padding: 1rem;
+  background-color: #fff8dc;
+  border: 0.125rem dashed #d4af37;
+  border-radius: 0.625rem;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Obrazki / ikony */
+.mystery {
+  width: 100%;
+  max-width: 10rem;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Element ukryty */
+#hiddenElement {
+  
+  margin-top: 0.625rem;
+  padding: 0.625rem;
+}
+
+.list-buttons{
+  background: none;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: 600;
+  border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.list-buttons:hover {
+  background-color: #ecd09e;
+}
+
+/* Video styles */
+.video-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  margin: 20px 0;
+  background: #000;
+}
+
+.video-wrapper > .react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video-error {
+  color: white;
+  text-align: center;
+  padding: 20px;
+  background: #ff6b6b;
+  border-radius: 8px;
+}
+
+/* Loading states */
+.loading, .error {
+  padding: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 768px) {
+  .layout,
+  .container {
+    flex-direction: column;
+  }
+
+  nav {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    width: 100%;
+    max-width: 20rem;
+    margin: 0.5rem auto;
+  }
+
+  .mystery {
+    width: 100%;
+    height: auto;
+  }
+}
