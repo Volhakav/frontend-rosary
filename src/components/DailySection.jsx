@@ -17,7 +17,7 @@ export default function DailySection() {
       <h2>Dzień 1</h2>
       <p>Posłuchaj zaproszenia i przyjmij błogosławieństwo</p>
 
-      {/* Pokazuje przycisk tylko jeśli nie pokazano jeszcze wideo */}
+    
       {!showHidden && (
         <button onClick={() => setShowHidden(true)} id="showButton">
           Pokaż więcej
