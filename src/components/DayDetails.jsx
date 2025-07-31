@@ -9,30 +9,29 @@ export default function DayDetails() {
   const [showTaskContent, setShowTaskContent] = useState(false);
 
   const fetchDayData = () => {
+    console.log("Pobieranie danych...", new Date().toLocaleTimeString());
     fetch(`https://rosary-backend.onrender.com/post/${dayId}`)
-        .then((res) => res.json())
-        .then((data) => {
+      .then((res) => res.json())
+      .then((data) => {
         setDayData(data);
         setTitle(data.title);
         setLoading(false);
-        })
-        .catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error fetching day details:", error);
         setLoading(false);
-        });
-    };
+      });
+  };
 
-    useEffect(() => {
-        fetchDayData(); // pierwsze pobranie
+  useEffect(() => {
+    fetchDayData(); // pierwsze pobranie danych
 
-        const interval = setInterval(() => {
-            fetchDayData(); // kolejne co 60 sekund
-        }, 60000); 
+    const interval = setInterval(() => {
+      fetchDayData(); // kolejne pobranie co 60 sekund
+    }, 60000);
 
-        return () => clearInterval(interval); // czyszczenie
-    }, [dayId]);
-
-
+    return () => clearInterval(interval); // czyszczenie interwału przy odmontowaniu
+  }, [dayId]);
 
   const renderItem = (item, index) => {
     switch (item.type) {
@@ -53,22 +52,20 @@ export default function DayDetails() {
           />
         );
       case "Video":
-        // Czyść URL z potencjalnych błędów
         let cleanUrl = item.value;
-        if (cleanUrl.startsWith('hhttps://')) {
-          cleanUrl = cleanUrl.replace('hhttps://', 'https://');
+        if (cleanUrl.startsWith("hhttps://")) {
+          cleanUrl = cleanUrl.replace("hhttps://", "https://");
         }
-        
-        // Konwertuj YouTube URL na embed URL
+
         let embedUrl = cleanUrl;
-        if (cleanUrl.includes('youtube.com/watch?v=')) {
-          const videoId = cleanUrl.split('v=')[1].split('&')[0];
+        if (cleanUrl.includes("youtube.com/watch?v=")) {
+          const videoId = cleanUrl.split("v=")[1].split("&")[0];
           embedUrl = `https://www.youtube.com/embed/${videoId}`;
-        } else if (cleanUrl.includes('youtu.be/')) {
-          const videoId = cleanUrl.split('youtu.be/')[1].split('?')[0];
+        } else if (cleanUrl.includes("youtu.be/")) {
+          const videoId = cleanUrl.split("youtu.be/")[1].split("?")[0];
           embedUrl = `https://www.youtube.com/embed/${videoId}`;
         }
-        
+
         return (
           <div key={`vid-${index}`} className="video-container">
             <iframe
@@ -115,7 +112,7 @@ export default function DayDetails() {
         ) : (
           <div id="hiddenElement">
             {taskItems.map((item, index) => (
-              <React.Fragment key={index}>
+              <React.Fragment key={index + splitIndex}>
                 {renderItem(item, index + splitIndex)}
               </React.Fragment>
             ))}

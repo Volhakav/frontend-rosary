@@ -5,7 +5,7 @@ export default function MenuList() {
     const [items, setItems] = useState([]);
     const [dataIsLoaded, setDataIsLoaded] = useState(false);
 
-    useEffect(() => {
+    const fetchItems = () => {
         fetch("https://rosary-backend.onrender.com/post")
             .then((res) => res.json())
             .then((json) => {
@@ -15,10 +15,20 @@ export default function MenuList() {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
+    };
+
+    useEffect(() => {
+        fetchItems(); // pierwsze pobranie
+
+        const interval = setInterval(() => {
+            fetchItems(); // kolejne co 60s
+        }, 60000);
+
+        return () => clearInterval(interval); // czyszczenie interwału
     }, []);
 
     if (!dataIsLoaded) {
-        return <h1>....</h1>;
+        return <h1>...</h1>;
     }
 
     return (
