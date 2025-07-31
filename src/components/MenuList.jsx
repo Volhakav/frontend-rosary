@@ -18,7 +18,7 @@ export default function MenuList() {
     }, []);
 
     if (!dataIsLoaded) {
-        return <h1>Please wait some time....</h1>;
+        return <h1>....</h1>;
     }
 
     return (
