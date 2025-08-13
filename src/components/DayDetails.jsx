@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function DayDetails() {
-  const { dayId } = useParams();
+  const { part, secret, dayId } = useParams();
   const [dayData, setDayData] = useState(null);
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
@@ -10,8 +10,11 @@ export default function DayDetails() {
 
   const fetchDayData = () => {
     console.log("Pobieranie danych...", new Date().toLocaleTimeString());
-    fetch(`https://rosary-backend.onrender.com/post/${dayId}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:3000/posts/${part}/${secret}/${dayId}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Błąd pobierania dnia");
+        return res.json();
+      })
       .then((data) => {
         setDayData(data);
         setTitle(data.title);
@@ -31,7 +34,7 @@ export default function DayDetails() {
     }, 60000);
 
     return () => clearInterval(interval); // czyszczenie interwału przy odmontowaniu
-  }, [dayId]);
+  }, [part, secret, dayId]);
 
   const renderItem = (item, index) => {
     switch (item.type) {

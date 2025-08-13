@@ -1,48 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import PartSelector from "./PartSelector";
+import SecretSelector from "./SecretSelector";
+import DaysList from "./DaysList";
 
 export default function MenuList() {
-    const [items, setItems] = useState([]);
-    const [dataIsLoaded, setDataIsLoaded] = useState(false);
+  const [parts] = useState(["radosna", "bolesna", "chwalebna", "świetlana"]);
+  const [selectedPart, setSelectedPart] = useState("radosna"); //bedzie zmiana w zaleznosci od daty
 
-    const fetchItems = () => {
-        fetch("https://rosary-backend.onrender.com/post")
-            .then((res) => res.json())
-            .then((json) => {
-                setItems(json);
-                setDataIsLoaded(true);
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    };
+  const [secrets] = useState([1, 2, 3, 4, 5]);
+  const [selectedSecret, setSelectedSecret] = useState(1); // tu też będzie zmiana w zależności od daty
 
-    useEffect(() => {
-        fetchItems(); // pierwsze pobranie
+  const [days, setDays] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-        const interval = setInterval(() => {
-            fetchItems(); // kolejne co 60s
-        }, 60000);
+  const fetchDays = async (part, secret) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${part}/${secret}`);
+      if (!response.ok) throw new Error("Błąd pobierania dni");
+      const data = await response.json();
+      setDays(data);
+    } catch (error) {
+      console.error(error);
+      setDays([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        return () => clearInterval(interval); // czyszczenie interwału
-    }, []);
+  useEffect(() => {
+    fetchDays(selectedPart, selectedSecret);
+  }, [selectedPart, selectedSecret]);
 
-    if (!dataIsLoaded) {
-        return <h1>...</h1>;
+    const handleDaySelect = (day) => {
+    window.location.href = `/day/${selectedPart}/${selectedSecret}/${day}`;
     }
 
-    return (
-        <ul>
-            {items.map((day, index) => (
-                <li key={index}>
-                    <Link 
-                        to={`/day/${day}`} 
-                        className="list-buttons"
-                    >
-                        Dzień {day}
-                    </Link>
-                </li>
-            ))}
-        </ul>
-    );
+
+  return (
+    <div className="menu-container">
+      <PartSelector 
+        parts={parts} 
+        selectedPart={selectedPart} 
+        onPartChange={setSelectedPart} 
+      />
+      
+      <SecretSelector 
+        secrets={secrets} 
+        selectedSecret={selectedSecret} 
+        onSecretChange={setSelectedSecret} 
+      />
+
+      <DaysList 
+        days={days} 
+        loading={loading} 
+        onDaySelect={handleDaySelect}
+        />
+    </div>
+  );
 }

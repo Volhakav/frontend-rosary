@@ -15,7 +15,7 @@ function App() {
               <>
               </>
             } />
-            <Route path="/day/:dayId" element={<DayDetails />} />
+            <Route path="/day/:part/:secret/:dayId" element={<DayDetails />} />
           </Routes>
         </main>
       </div>
