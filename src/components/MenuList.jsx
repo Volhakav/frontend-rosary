@@ -3,12 +3,41 @@ import PartSelector from "./PartSelector";
 import SecretSelector from "./SecretSelector";
 import DaysList from "./DaysList";
 
-export default function MenuList() {
-  const [parts] = useState(["radosna", "bolesna", "chwalebna", "świetlana"]);
-  const [selectedPart, setSelectedPart] = useState("radosna"); //bedzie zmiana w zaleznosci od daty
+const mysteries = {
+  radosna: [
+    "Zwiastowanie",
+    "Nawiedzenie św. Elżbiety",
+    "Narodzenie Jezusa",
+    "Ofiarowanie w świątyni",
+    "Odnalezienie Jezusa w świątyni"
+  ],
+  światła: [
+    "Chrzest Jezusa w Jordanie",
+    "Wesele w Kanie Galilejskiej",
+    "Głoszenie Królestwa Bożego i wzywanie do nawrócenia",
+    "Przemienienie na górze Tabor",
+    "Ustanowienie Eucharystii"
+  ],
+  bolesna: [
+    "Modlitwa w Ogrójcu",
+    "Biczowanie Pana Jezusa",
+    "Cierniem ukoronowanie",
+    "Droga Krzyżowa",
+    "Śmierć Jezusa na krzyżu"
+  ],
+  chwalebna: [
+    "Zmartwychwstanie Pana Jezusa",
+    "Wniebowstąpienie",
+    "Zesłanie Ducha Świętego",
+    "Wniebowzięcie Maryi",
+    "Ukoronowanie Maryi na Królową nieba i ziemi"
+  ]
+};
 
-  const [secrets] = useState([1, 2, 3, 4, 5]);
-  const [selectedSecret, setSelectedSecret] = useState(1); // tu też będzie zmiana w zależności od daty
+export default function MenuList() {
+  const [parts] = useState(Object.keys(mysteries));
+  const [selectedPart, setSelectedPart] = useState("radosna");
+  const [selectedSecret, setSelectedSecret] = useState(1);
 
   const [days, setDays] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,21 +61,23 @@ export default function MenuList() {
     fetchDays(selectedPart, selectedSecret);
   }, [selectedPart, selectedSecret]);
 
-    const handleDaySelect = (day) => {
+  const handleDaySelect = (day) => {
     window.location.href = `/day/${selectedPart}/${selectedSecret}/${day}`;
-    }
-
+  };
 
   return (
     <div className="menu-container">
       <PartSelector 
         parts={parts} 
         selectedPart={selectedPart} 
-        onPartChange={setSelectedPart} 
+        onPartChange={(part) => {
+          setSelectedPart(part);
+          setSelectedSecret(1); // reset do pierwszej tajemnicy przy zmianie części
+        }} 
       />
       
       <SecretSelector 
-        secrets={secrets} 
+        secrets={mysteries[selectedPart]} 
         selectedSecret={selectedSecret} 
         onSecretChange={setSelectedSecret} 
       />
@@ -55,7 +86,7 @@ export default function MenuList() {
         days={days} 
         loading={loading} 
         onDaySelect={handleDaySelect}
-        />
+      />
     </div>
   );
 }

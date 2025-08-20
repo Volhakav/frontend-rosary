@@ -63,13 +63,17 @@ nav {
   background-color: #ffe4a1;
   padding: 0.9375rem;
   border-radius: 0.75rem;
-  /*width: 12.5px;*/
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin: 1.1rem;
+
+  width: fit-content;   /* ⬅️ dopasuj szerokość do zawartości */
+  max-width: 280px;     /* ⬅️ ale nie większe niż 280px */
+  min-width: 200px;     /* ⬅️ i nie mniejsze niż 200px */
 }
+
 
 nav ul {
   list-style-type: none;
@@ -270,7 +274,8 @@ button:hover {
 }
 
 .menu-select {
-  width: 100%;
+  width: 100%;          /* zajmą całą szerokość nav */
+  max-width: 250px;
   padding: 0.75rem;
   border: 2px solid #d4af37;
   border-radius: 0.75rem;
@@ -481,14 +486,10 @@ button:hover {
 
 .calendar-grid {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.calendar-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 kolumn */
+  gap: 0.3rem;
+  justify-items: center; /* przyciski wyśrodkowane w komórkach */
 }
 
 .day-button {
@@ -505,9 +506,9 @@ button:hover {
   align-items: center;
   justify-content: center;
   color: #333;
-  flex-shrink: 0;
 }
 
+/* dostępne */
 .day-button.available {
   border-color: #ffb347;
   background-color: #ffcc70;
@@ -519,6 +520,7 @@ button:hover {
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
+/* niedostępne */
 .day-button.unavailable {
   border-color: #ecd09e;
   background-color: #fff8dc;
@@ -526,11 +528,6 @@ button:hover {
   cursor: not-allowed;
 }
 
-/* Ostatni rząd z 5 dniami */
-.calendar-row:last-child {
-  justify-content: flex-start;
-  gap: 0.6rem;
-}
 
 /* Responsywność */
 @media (max-width: 400px) {

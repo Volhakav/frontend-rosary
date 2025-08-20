@@ -27,13 +27,11 @@ export default function DayDetails() {
   };
 
   useEffect(() => {
-    fetchDayData(); // pierwsze pobranie danych
-
+    fetchDayData();
     const interval = setInterval(() => {
-      fetchDayData(); // kolejne pobranie co 60 sekund
+      fetchDayData();
     }, 60000);
-
-    return () => clearInterval(interval); // czyszczenie interwału przy odmontowaniu
+    return () => clearInterval(interval);
   }, [part, secret, dayId]);
 
   const renderItem = (item, index) => {
@@ -41,14 +39,14 @@ export default function DayDetails() {
       case "Text":
         return (
           <div
-            key={`text-${index}`}
+            key={`${item.type}-${index}-${item.id}`}
             dangerouslySetInnerHTML={{ __html: item.value }}
           />
         );
       case "Image":
         return (
           <img
-            key={`img-${index}`}
+            key={`${item.type}-${index}-${item.id}`}
             src={item.value}
             alt={item.options?.alt || "Obraz"}
             className="mystery"
@@ -70,7 +68,7 @@ export default function DayDetails() {
         }
 
         return (
-          <div key={`vid-${index}`} className="video-container">
+          <div key={`${item.type}-${index}-${item.id}`} className="video-container">
             <iframe
               width="100%"
               height="360"
@@ -82,6 +80,19 @@ export default function DayDetails() {
             ></iframe>
           </div>
         );
+
+      case "Game":
+        return (
+          <div key={`${item.type}-${index}-${item.id}`} className="game-container">
+            <iframe
+              src={item.value}
+              title="Gra"
+              width="100%"
+              height="360"
+              frameBorder="0"
+              allowFullScreen></iframe>
+          </div>
+        );
       default:
         return null;
     }
@@ -90,38 +101,65 @@ export default function DayDetails() {
   if (loading) return <div className="loading">Ładowanie dnia...</div>;
   if (!dayData) return <div className="error">Dzień nie znaleziony</div>;
 
-  const total = dayData.data.length;
-  const splitIndex = Math.ceil(total / 2);
-  const mysteryItems = dayData.data.slice(0, splitIndex);
-  const taskItems = dayData.data.slice(splitIndex);
+  // Używamy bezpośrednio danych z API
+  const mysteryItems = dayData.data || [];
+  const taskItems = dayData.task || [];
+
+  // Sprawdzamy czy w taskItems są elementy typu Video lub Game
+  const hasMediaContent = taskItems.some(item => 
+    item.type === "Video" || item.type === "Game"
+  );
 
   return (
     <div className="day-details-container">
+      {/* Sekcja z tajemnicami */}
       <section className="rosary-box">
         <h2>{title}</h2>
         {mysteryItems.map((item, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={`mystery-${index}-${item.id}`}>
             {renderItem(item, index)}
           </React.Fragment>
         ))}
       </section>
 
-      <section id="daily-message" className="daily-box">
-        <h3>Dzień {dayData.index}</h3>
-        {!showTaskContent ? (
-          <button onClick={() => setShowTaskContent(true)} id="showButton">
-            Pokaż więcej
-          </button>
-        ) : (
-          <div id="hiddenElement">
-            {taskItems.map((item, index) => (
-              <React.Fragment key={index + splitIndex}>
-                {renderItem(item, index + splitIndex)}
-              </React.Fragment>
-            ))}
-          </div>
-        )}
-      </section>
+      {/* Sekcja z zadaniami - tylko jeśli są jakieś zadania */}
+      {taskItems.length > 0 && (
+        <section id="daily-message" className="daily-box">
+          <h3>Dzień {dayData.index}</h3>
+          
+          {/* Jeśli nie ma mediów, pokaż od razu zawartość */}
+          {!hasMediaContent ? (
+            <div>
+              {taskItems.map((item, index) => (
+                <React.Fragment key={`task-${index}-${item.id}`}>
+                  {renderItem(item, index)}
+                </React.Fragment>
+              ))}
+            </div>
+          ) : (
+            /* Jeśli są media, pokaż przycisk i zawartość po kliknięciu */
+            <>
+              {!showTaskContent ? (
+                <button 
+                  onClick={() => setShowTaskContent(true)} 
+                  id="showButton"
+                  className="show-more-btn"
+                >
+                  Pokaż zadanie
+                </button>
+              ) : (
+                <div id="hiddenElement">
+                  {taskItems.map((item, index) => (
+                    <React.Fragment key={`task-${index}-${item.id}`}>
+                      {renderItem(item, index)}
+                    </React.Fragment>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </section>
+      )}
     </div>
   );
 }

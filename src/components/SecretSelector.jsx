@@ -6,12 +6,12 @@ const SecretSelector = ({ secrets, selectedSecret, onSecretChange }) => (
       Wybierz tajemnicę:
       <select 
         className="menu-select"
-        value={selectedSecret} 
+        value={selectedSecret}
         onChange={(e) => onSecretChange(Number(e.target.value))}
       >
-        {secrets.map((secret) => (
-          <option key={secret} value={secret}>
-            {secret}
+        {secrets.map((secretName, index) => (
+          <option key={index} value={index + 1}>
+            {secretName}
           </option>
         ))}
       </select>
