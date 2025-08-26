@@ -104,6 +104,7 @@ export default function DayDetails() {
   // Używamy bezpośrednio danych z API
   const mysteryItems = dayData.data || [];
   const taskItems = dayData.task || [];
+  const quoteItems = dayData.quote || [];
 
   // Sprawdzamy czy w taskItems są elementy typu Video lub Game
   const hasMediaContent = taskItems.some(item => 
@@ -121,6 +122,17 @@ export default function DayDetails() {
           </React.Fragment>
         ))}
       </section>
+
+      {quoteItems.length > 0 && (
+        <section className="quote-box">
+          <h3>Refleksja i modlitwa</h3>
+          {quoteItems.map((item, index) => (
+            <React.Fragment key={`quote-${index}-${item.id}`}>
+              {renderItem(item, index)}
+            </React.Fragment>
+          ))}
+        </section>
+      )}
 
       {/* Sekcja z zadaniami - tylko jeśli są jakieś zadania */}
       {taskItems.length > 0 && (

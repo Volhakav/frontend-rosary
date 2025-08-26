@@ -23,27 +23,29 @@ body {
   font-family: 'Comic Sans MS', cursive, sans-serif;
   background-color: #fdf6e3;
   color: #333;
+  min-height: 100vh;
 }
 
 /* Layout główny */
 .layout {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: 100vh;
 }
 
 /* Nagłówek */
 header {
   background-color: #ffcc70;
-  padding: 1.25rem;
+  padding: 1rem;
   text-align: center;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
 }
 
 header img.logo {
-  max-height: 5.625rem;
+  max-height: 5rem;
   display: block;
-  margin: 0 auto 0.625rem;
+  margin: 0 auto 0.5rem;
   max-width: 100%;
   height: auto;
 }
@@ -51,81 +53,173 @@ header img.logo {
 /* Kontener główny */
 .container {
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  padding: 2rem;
-  flex-wrap: wrap;
-  align-items: stretch; /* Dzięki temu nav i rosary-box są tej samej wysokości */
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+  flex: 1;
 }
 
 /* Sidebar */
 nav {
   background-color: #ffe4a1;
-  padding: 0.9375rem;
+  padding: 1rem;
   border-radius: 0.75rem;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin: 1.1rem;
-
-  width: fit-content;   /* ⬅️ dopasuj szerokość do zawartości */
-  max-width: 280px;     /* ⬅️ ale nie większe niż 280px */
-  min-width: 200px;     /* ⬅️ i nie mniejsze niż 200px */
+  order: 2;
+  max-width: 100%;
+  margin: 0;
 }
-
 
 nav ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
 nav ul li {
-  margin: 0.625rem 0;
+  margin: 0;
 }
 
 nav ul li a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
 }
 
-/* Główna zawartość */
+nav ul li a:hover {
+  background-color: rgba(255, 179, 71, 0.3);
+}
+
+/* Główna zawartość - ULEPSZENIA RESPONSYWNOŚCI */
 main {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  flex: 1;
+  order: 1;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kontener treści w main */
+.content-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Boxy zawartości - ulepszenia */
+.daily-box,
+.rosary-box,
+.quote-of-the-day,
+.quiz-section {
+  margin: 0 auto;
   padding: 1.25rem;
+  background-color: #fff8dc;
   border-radius: 0.75rem;
-  flex-grow: 1;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  border: 2px solid #f0e6d2;        /* jasna ramka w tonacji dziennika */
+  
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Specyficzne style dla rosary-box */
+.rosary-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* Obrazki tajemnic różańcowych */
+.mystery {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  margin: 0.75rem auto;
+  border-radius: 0.5rem;
+}
+
+/* Nagłówki w main */
+main h2, 
+main h3 {
+  text-align: center;
+  color: #333;
+  margin-top: 0;
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+/* Przyciski w main */
+main .toggle-calendar-btn,
+main .show-more-btn {
+  width: 100%;
+  max-width: 280px;
+  margin: 0.5rem auto;
+  display: block;
+}
+
+/* Listy w main */
+main ul {
+  padding-left: 1.2rem;
+  text-align: left;
+}
+
+main li {
+  margin-bottom: 0.5rem;
 }
 
 /* Cytat dnia */
 .quote-of-the-day {
   background-color: #fff8dc;
-  padding: 0.9375rem;
-  margin: 1.25rem 0;
+  padding: 1rem;
+  margin: 1rem 0;
   font-style: italic;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
 }
 
 /* Quiz */
 .quiz-section {
   background-color: #e0f7fa;
-  padding: 0.9375rem;
-  margin: 1.25rem 0;
-  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
 }
 
 /* Przyciski */
-button {
+.menu-toggle, 
+.toggle-calendar-btn,
+.show-more-btn
+ {
   background-color: #ffb347;
   border: none;
-  padding: 0.625rem 1.25rem;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border-radius: 0.75rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: inline-block;
-  color:#333
+  color: #333;
+  min-width: 140px;
+  text-align: center;
 }
 
 button:hover {
@@ -134,19 +228,19 @@ button:hover {
 
 /* Wideo */
 #myVideo {
-  margin: 0.625rem auto;
-  padding: 1.875rem;
+  margin: 0.5rem auto;
+  padding: 1rem;
   text-align: center;
 }
 
 /* Zadanie na dziś */
 .daily-box {
-  margin: 0.625rem auto;
-  padding: 1.875rem;
+  margin: 0.5rem auto;
+  padding: 1.5rem;
   background-color: #fff8dc;
-  border: 0.125rem dashed #d4af37;
-  border-radius: 0.625rem;
-  font-size: 1.2rem;
+
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
   text-align: center;
   color: #333;
 }
@@ -156,12 +250,11 @@ button:hover {
   margin: 0;
   padding: 1rem;
   background-color: #fff8dc;
-  border: 0.125rem dashed #d4af37;
-  border-radius: 0.625rem;
-  font-size: 1.2rem;
+
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
   text-align: center;
   color: #333;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -170,27 +263,27 @@ button:hover {
 /* Obrazki / ikony */
 .mystery {
   width: 100%;
-  max-width: 10rem;
+  max-width: 8rem;
   height: auto;
   margin: 0 auto;
 }
 
 /* Element ukryty */
 #hiddenElement {
-  
-  margin-top: 0.625rem;
-  padding: 0.625rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
 }
 
-.list-buttons{
+.list-buttons {
   background: none;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: 600;
   border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 12px;
-    cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  min-width: auto;
 }
 
 .list-buttons:hover {
@@ -201,8 +294,10 @@ button:hover {
 .video-wrapper {
   position: relative;
   padding-top: 56.25%; /* 16:9 aspect ratio */
-  margin: 20px 0;
+  margin: 1rem 0;
   background: #000;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .video-wrapper > .react-player {
@@ -214,55 +309,81 @@ button:hover {
 .video-error {
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 1rem;
   background: #ff6b6b;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 /* Loading states */
 .loading, .error {
-  padding: 40px;
+  padding: 2rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .error {
   color: #ff6b6b;
 }
 
+.quote-box {
+  background: #ffe4a1;             
+  border: 2px solid #f0e6d2;        
+  border-radius: 12px;              
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-style: italic;
+}
+
+.quote-box h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #444;
+  text-align: center;
+}
+
+.quote-box p {
+  margin: 0 0 10px;
+  line-height: 1.6;
+  color: #333;
+  text-align: center;
+}
+
 /* MenuList.css */
-
-
 .menu-container {
-  background-color: transparent; 
+  background-color: transparent;
   padding: 0;
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .menu-container h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .menu-section {
-  background-color: #fff8dc; /* jaśniejsze tło dla sekcji */
+  background-color: #fff8dc;
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   border: 1px dashed #d4af37;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-title {
   color: #333;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #ffcc70;
+  text-align: center;
 }
 
 .menu-label {
@@ -271,28 +392,38 @@ button:hover {
   font-weight: bold;
   color: #333;
   font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-align: center;
+  font-size: 1.1rem;
 }
 
 .menu-select {
-  width: 100%;          /* zajmą całą szerokość nav */
-  max-width: 250px;
+  width: 100%;
+  max-width: 100%;
   padding: 0.75rem;
   border: 2px solid #d4af37;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   background-color: #fff8dc;
   font-size: 1rem;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  margin-top: 0.5rem;
+  margin: 0.5rem auto;
   color: #333;
   appearance: menulist;
   cursor: pointer;
+  display: block;
+  white-space: normal;
+  word-wrap: break-word;
+  min-height: 44px; /* Minimalna wysokość dla dotykowych urządzeń */
 }
 
 /* Stylizacja opcji w select */
 .menu-select option {
   background-color: #fff8dc;
   color: #333;
-  padding: 0.5rem;
+  padding: 8px 12px;
+  white-space: normal;
+  word-wrap: break-word;
+  height: auto;
+  line-height: 1.4;
 }
 
 /* Efekt hover dla select */
@@ -307,7 +438,7 @@ button:hover {
 }
 
 .days-section {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .loading-text, .no-days-text {
@@ -322,116 +453,31 @@ button:hover {
   padding: 0;
   margin: 0;
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 0.75rem;
 }
 
 .day-link {
   display: block;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   background-color: #ffcc70;
   color: #333;
   text-decoration: none;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   text-align: center;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .day-link:hover {
   background-color: #ffb347;
-}
-
-/* Responsywność */
-@media (max-width: 768px) {
-  .menu-container {
-    padding: 1rem;
-  }
-  
-  .menu-container h2 {
-    font-size: 1.3rem;
-  }
-  
-  .menu-select {
-    padding: 0.6rem;
-  }
-}
-
-.days-section {
-  margin-top: 30px;
-}
-
-.loading-text, .no-days-text {
-  text-align: center;
-  color: #6c757d;
-  font-style: italic;
-}
-
-.days-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.day-item {
-  margin-bottom: 10px;
-}
-
-.day-link {
-  display: block;
-  padding: 12px 15px;
-  background-color: #e9ecef;
-  color: #212529;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.day-link:hover {
-  background-color: #dee2e6;
-  transform: translateX(5px);
-}
-
-/* RESPONSYWNOŚĆ */
-@media (max-width: 768px) {
-  .layout,
-  .container {
-    flex-direction: column;
-  }
-
-  nav {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  button {
-    width: 100%;
-    max-width: 20rem;
-    margin: 0.5rem auto;
-  }
-
-  .mystery {
-    width: 100%;
-    height: auto;
-  }
-
-  .menu-container {
-    padding: 1rem;
-  }
-  
-  .menu-container h2 {
-    font-size: 1.3rem;
-  }
-  
-  .menu-select {
-    padding: 0.6rem;
-  }
+  transform: translateY(-2px);
 }
 
 /* DaysList.css */
-
 .days-section {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   text-align: center;
   font-family: 'Comic Sans MS', cursive, sans-serif;
 }
@@ -447,29 +493,31 @@ button:hover {
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
   font-weight: bold;
   color: #333;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 250px;
 }
 
 .toggle-calendar-btn:hover {
   background-color: #ffa500;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .calendar-container {
   background-color: #fff8dc;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
   border: 2px dashed #d4af37;
   margin: 1rem auto 0;
-  max-width: 300px;
+  max-width: 100%;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -479,26 +527,27 @@ button:hover {
 }
 
 .calendar-title {
-  margin: 0 0 1.25rem 0;
+  margin: 0 0 1rem 0;
   color: #333;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 .calendar-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 kolumn */
-  gap: 0.3rem;
-  justify-items: center; /* przyciski wyśrodkowane w komórkach */
+  grid-template-columns: repeat(5, 40px); /* 5 KOLUMN po 40px */
+  column-gap: 0.3rem; /* Tylko odstęp między kolumnami */
+  row-gap: 0.5rem;    /* Odstęp między wierszami */
+  justify-content: center; /* Wyśrodkuj siatkę */
 }
-
 .day-button {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border: 2px solid #ffcc70;
   border-radius: 50%;
   background: #ffe4a1;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
@@ -517,7 +566,7 @@ button:hover {
 .day-button.available:hover {
   background-color: #ffb347;
   transform: scale(1.1);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* niedostępne */
@@ -526,26 +575,6 @@ button:hover {
   background-color: #fff8dc;
   color: #999;
   cursor: not-allowed;
-}
-
-
-/* Responsywność */
-@media (max-width: 400px) {
-  .calendar-container {
-    padding: 1rem;
-    max-width: 260px;
-  }
-  
-  .day-button {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
-  }
-  
-  .toggle-calendar-btn {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-  }
 }
 
 /* Animacja kliknięcia */
@@ -557,4 +586,557 @@ button:hover {
 
 .day-button.available:active {
   animation: buttonClick 0.2s ease;
+}
+
+/* Media queries dla różnych urządzeń */
+
+/* Małe telefony (poniżej 360px) */
+@media (max-width: 359px) {
+  main {
+    padding: 0.5rem;
+  }
+  
+  .daily-box,
+  .rosary-box,
+  .quote-of-the-day,
+  .quiz-section {
+    padding: 0.9rem;
+    font-size: 1rem;
+    margin: 0.25rem 0;
+  }
+  
+  main h2 {
+    font-size: 1.3rem;
+  }
+  
+  main h3 {
+    font-size: 1.1rem;
+  }
+  
+  .mystery {
+    max-width: 200px;
+  }
+  
+  .calendar-grid {
+    grid-template-columns: repeat(5, 35px);
+    column-gap: 0.2rem;
+    row-gap: 0.4rem;
+  }
+  
+  .day-button {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Telefony (360px - 575px) */
+@media (min-width: 360px) and (max-width: 575px) {
+  main {
+    padding: 0.75rem;
+  }
+  
+  .daily-box,
+  .rosary-box,
+  .quote-of-the-day,
+  .quiz-section {
+    padding: 1rem;
+    font-size: 1.05rem;
+  }
+  
+  .content-container {
+    gap: 1.25rem;
+  }
+}
+
+/* Tablety (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  main {
+    padding: 1.25rem;
+  }
+  
+  .daily-box,
+  .rosary-box,
+  .quote-of-the-day,
+  .quiz-section {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .content-container {
+    gap: 1.75rem;
+  }
+  
+  .mystery {
+    max-width: 280px;
+  }
+}
+
+/* Tablety w orientacji poziomej i małe laptopy (768px - 991px) */
+@media (min-width: 768px) {
+  .layout {
+    flex-direction: row;
+  }
+  
+  .container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  
+  nav {
+    width: 250px;
+    max-width: 250px;
+    order: 1;
+    margin: 1rem;
+    flex-shrink: 0;
+  }
+  
+  main {
+    order: 2;
+    flex: 1;
+    padding: 1.5rem;
+  }
+  
+  nav ul {
+    flex-direction: column;
+  }
+  
+  .menu-select {
+    max-width: 250px;
+  }
+  
+  .toggle-calendar-btn {
+    width: auto;
+  }
+  
+  .content-container {
+    max-width: 90%;
+  }
+}
+
+/* Laptopy (992px +) */
+@media (min-width: 992px) {
+  .container {
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  nav {
+    width: 280px;
+    max-width: 280px;
+  }
+  
+  .rosary-box {
+    padding: 1.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .daily-box {
+    padding: 1.875rem;
+    font-size: 1.2rem;
+  }
+  
+  .mystery {
+    max-width: 10rem;
+  }
+  
+  .content-container {
+    max-width: 85%;
+  }
+}
+
+/* Duże ekrany (1200px +) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .content-container {
+    max-width: 1100px;
+  }
+}
+
+/* Wysokie urządzenia (np. telefony w orientacji pionowej) */
+@media (max-height: 700px) and (orientation: portrait) {
+  header {
+    padding: 0.75rem;
+  }
+  
+  header img.logo {
+    max-height: 4rem;
+  }
+  
+  .container {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+  
+  .rosary-box {
+    min-height: 250px;
+  }
+}
+
+/* Poprawki dla bardzo wąskich ekranów */
+@media (max-width: 340px) {
+  .daily-box,
+  .rosary-box,
+  .quote-of-the-day,
+  .quiz-section {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+  
+  main h2 {
+    font-size: 1.2rem;
+  }
+  
+  main h3 {
+    font-size: 1rem;
+  }
+  
+  .mystery {
+    max-width: 180px;
+  }
+  
+  .calendar-grid {
+    grid-template-columns: repeat(5, 32px);
+    column-gap: 0.1rem;
+    row-gap: 0.3rem;
+  }
+  
+  .day-button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Poprawki dla tekstu, aby dobrze się zawijał */
+.text-content {
+  hyphens: auto;
+  word-break: break-word;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Lepsze zarządzanie długimi słowami */
+.daily-box,
+.rosary-box,
+.quote-of-the-day,
+.quiz-section {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Poprawa wyglądu cytatu */
+.quote-of-the-day {
+  font-style: italic;
+  background: linear-gradient(to right, #fff8dc 0%, #fef3c7 100%);
+}
+
+/* Poprawa wyglądu quizu */
+.quiz-section {
+  background: linear-gradient(to right, #e0f7fa 0%, #b2ebf2 100%);
+}
+
+
+
+/* Animacje ładowania zawartości */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.daily-box,
+.rosary-box,
+.quote-of-the-day,
+.quiz-section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Menu select responsiveness */
+@media (max-width: 780px) {
+  .menu-select {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+  
+  .menu-select option {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+  
+  .menu-label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-select {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  
+  .menu-select option {
+    font-size: 0.85rem;
+    padding: 5px 8px;
+  }
+  
+  .menu-section {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu-select {
+    font-size: 0.8rem;
+  }
+  
+  .menu-select option {
+    font-size: 0.8rem;
+  }
+}
+
+/* Styl dla strony pomocy */
+.help-page {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.help-page h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ffcc70;
+  padding-bottom: 0.5rem;
+}
+
+.help-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+.help-item {
+  margin: 0 auto;
+  padding: 1.25rem;
+  background-color: #fff8dc;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  border: 2px solid #f0e6d2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.help-text {
+  text-align: left; 
+}
+
+.help-text-content h1,
+.help-text-content h2,
+.help-text-content h3,
+.help-text-content h4 {
+  color: #5a3921;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e6d6b8;
+  padding-bottom: 0.5rem;
+}
+
+.help-text-content h1 {
+  font-size: 1.8rem;
+}
+
+.help-text-content h2 {
+  font-size: 1.5rem;
+}
+
+.help-text-content h3 {
+  font-size: 1.3rem;
+}
+
+.help-text-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  text-align: justify; 
+}
+
+.help-text-content a {
+  color: #8b5a2b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.help-text-content a:hover {
+  color: #6b4423;
+  text-decoration: underline;
+}
+
+.help-text-content ul,
+.help-text-content ol {
+  text-align: left;
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.help-text-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.help-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.help-image-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.help-image-element {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e6d6b8;
+}
+
+
+.help-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.help-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+
+
+.help-loading,
+.help-error {
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: #fff8dc;
+  border-radius: 0.75rem;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #f0e6d2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.help-loading {
+  color: #8b5a2b;
+  font-style: italic;
+}
+
+.help-error {
+  color: #c1774c;
+  background-color: #fff0e0;
+  border-color: #e6c6a8;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .help-page {
+    padding: 1rem;
+  }
+  
+  .help-item {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .help-text-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .help-text-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .help-text-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .help-image {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .help-page {
+    padding: 0.5rem;
+  }
+  
+  .help-item {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .help-text-content p {
+    text-align: left; 
+  }
+}
+
+
+.help-section {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 2px dashed #d4af37;
+}
+
+.help-btn {
+  background: linear-gradient(to bottom, #8b5a2b, #6b4423);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 8px rgba(139, 90, 43, 0.3);
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.help-btn:hover {
+  background: linear-gradient(to bottom, #6b4423, #5a3921);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(139, 90, 43, 0.4);
+}
+
+.help-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .help-btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+  }
 }

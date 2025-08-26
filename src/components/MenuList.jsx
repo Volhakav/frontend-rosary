@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PartSelector from "./PartSelector";
 import SecretSelector from "./SecretSelector";
 import DaysList from "./DaysList";
+import { useNavigate } from "react-router-dom"; // Dodaj import
 
 const mysteries = {
   radosna: [
@@ -38,9 +39,9 @@ export default function MenuList() {
   const [parts] = useState(Object.keys(mysteries));
   const [selectedPart, setSelectedPart] = useState("radosna");
   const [selectedSecret, setSelectedSecret] = useState(1);
-
   const [days, setDays] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Hook do nawigacji
 
   const fetchDays = async (part, secret) => {
     setLoading(true);
@@ -62,17 +63,24 @@ export default function MenuList() {
   }, [selectedPart, selectedSecret]);
 
   const handleDaySelect = (day) => {
-    window.location.href = `/day/${selectedPart}/${selectedSecret}/${day}`;
+    navigate(`/day/${selectedPart}/${selectedSecret}/${day}`);
+  };
+
+  // Funkcja do otwierania strony pomocy
+  const openHelpPage = () => {
+    navigate('/help');
   };
 
   return (
     <div className="menu-container">
+      <h2>Wybierz część różańca</h2>
+      
       <PartSelector 
         parts={parts} 
         selectedPart={selectedPart} 
         onPartChange={(part) => {
           setSelectedPart(part);
-          setSelectedSecret(1); // reset do pierwszej tajemnicy przy zmianie części
+          setSelectedSecret(1);
         }} 
       />
       
@@ -87,6 +95,16 @@ export default function MenuList() {
         loading={loading} 
         onDaySelect={handleDaySelect}
       />
+
+      {/* Przycisk Pomoce */}
+      <div className="help-section">
+        <button 
+          className="btn help-btn" 
+          onClick={openHelpPage}
+        >
+          <i className="fas fa-question-circle"></i> Pomoce
+        </button>
+      </div>
     </div>
   );
 }
