@@ -12,7 +12,7 @@ const HelpPage = () => {
   const fetchHelpData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3000/help');
+      const response = await fetch('https://zrdzieci.diecezja.pl/api/help');
       if (!response.ok) throw new Error('Błąd pobierania pomocy');
       const data = await response.json();
       setHelpData(data);

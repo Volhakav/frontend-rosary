@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Menu from './components/Menu.jsx';
 import DayDetails from './components/DayDetails.jsx';
-import HelpPage from './components/HelpPage.jsx'; // Nowy komponent
+import HelpPage from './components/HelpPage.jsx'; 
 import './App.css';
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
         <main>
           <Routes>
            
-            <Route path="/day/:part/:secret/:dayId" element={<DayDetails />} />
-            <Route path="/help" element={<HelpPage />} /> {/* Nowa ścieżka */}
+            <Route path="/dzien/:part/:secret/:dayId" element={<DayDetails />} />
+            <Route path="/pomoc" element={<HelpPage />} /> 
           </Routes>
         </main>
       </div>

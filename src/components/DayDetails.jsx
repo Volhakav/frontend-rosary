@@ -10,7 +10,7 @@ export default function DayDetails() {
 
   const fetchDayData = () => {
     console.log("Pobieranie danych...", new Date().toLocaleTimeString());
-    fetch(`http://localhost:3000/posts/${part}/${secret}/${dayId}`)
+    fetch(`https://zrdzieci.diecezja.pl/api/posts/${part}/${secret}/${dayId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Błąd pobierania dnia");
         return res.json();
@@ -101,12 +101,10 @@ export default function DayDetails() {
   if (loading) return <div className="loading">Ładowanie dnia...</div>;
   if (!dayData) return <div className="error">Dzień nie znaleziony</div>;
 
-  // Używamy bezpośrednio danych z API
   const mysteryItems = dayData.data || [];
   const taskItems = dayData.task || [];
   const quoteItems = dayData.quote || [];
 
-  // Sprawdzamy czy w taskItems są elementy typu Video lub Game
   const hasMediaContent = taskItems.some(item => 
     item.type === "Video" || item.type === "Game"
   );
@@ -149,7 +147,7 @@ export default function DayDetails() {
               ))}
             </div>
           ) : (
-            /* Jeśli są media, pokaż przycisk i zawartość po kliknięciu */
+           
             <>
               {!showTaskContent ? (
                 <button 

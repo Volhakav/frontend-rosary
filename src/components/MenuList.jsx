@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PartSelector from "./PartSelector";
 import SecretSelector from "./SecretSelector";
 import DaysList from "./DaysList";
-import { useNavigate } from "react-router-dom"; // Dodaj import
+import { useNavigate } from "react-router-dom"; 
 
 const mysteries = {
   radosna: [
@@ -46,7 +46,7 @@ export default function MenuList() {
   const fetchDays = async (part, secret) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/posts/${part}/${secret}`);
+      const response = await fetch(`https://zrdzieci.diecezja.pl/api/posts/${part}/${secret}`);
       if (!response.ok) throw new Error("Błąd pobierania dni");
       const data = await response.json();
       setDays(data);
@@ -63,12 +63,12 @@ export default function MenuList() {
   }, [selectedPart, selectedSecret]);
 
   const handleDaySelect = (day) => {
-    navigate(`/day/${selectedPart}/${selectedSecret}/${day}`);
+    navigate(`/dzien/${selectedPart}/${selectedSecret}/${day}`);
   };
 
   // Funkcja do otwierania strony pomocy
   const openHelpPage = () => {
-    navigate('/help');
+    navigate('/pomoc');
   };
 
   return (
