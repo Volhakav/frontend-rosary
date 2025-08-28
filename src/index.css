@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ogólne ustawienia */
+/* Main settings */
 html {
   font-size: 16px;
 }
@@ -26,14 +26,14 @@ body {
   min-height: 100vh;
 }
 
-/* Layout główny */
+/* Main layout */
 .layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Nagłówek */
+/* Header */
 header {
   background-color: #ffcc70;
   padding: 1rem;
@@ -50,7 +50,7 @@ header img.logo {
   height: auto;
 }
 
-/* Kontener główny */
+/* Main container */
 .container {
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@ nav ul li a:hover {
   background-color: rgba(255, 179, 71, 0.3);
 }
 
-/* Główna zawartość - ULEPSZENIA RESPONSYWNOŚCI */
+/* Main content - RESPONSIVENESS IMPROVEMENTS */
 main {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -109,7 +109,7 @@ main {
   flex-direction: column;
 }
 
-/* Kontener treści w main */
+/* Content container in main */
 .content-container {
   width: 100%;
   max-width: 100%;
@@ -119,7 +119,7 @@ main {
   gap: 1.5rem;
 }
 
-/* Boxy zawartości - ulepszenia */
+/* Content boxes - improvements */
 .daily-box,
 .rosary-box,
 .quote-of-the-day,
@@ -135,12 +135,11 @@ main {
   box-sizing: border-box;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  border: 2px solid #f0e6d2;        /* jasna ramka w tonacji dziennika */
-  
+  border: 2px solid #f0e6d2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Specyficzne style dla rosary-box */
+/* Specific styles for rosary-box */
 .rosary-box {
   display: flex;
   flex-direction: column;
@@ -149,7 +148,7 @@ main {
   min-height: 300px;
 }
 
-/* Obrazki tajemnic różańcowych */
+/* Rosary mystery images */
 .mystery {
   width: 100%;
   max-width: 250px;
@@ -158,7 +157,7 @@ main {
   border-radius: 0.5rem;
 }
 
-/* Nagłówki w main */
+/* Headings in main */
 main h2, 
 main h3 {
   text-align: center;
@@ -168,7 +167,7 @@ main h3 {
   width: 100%;
 }
 
-/* Przyciski w main */
+/* Buttons in main */
 main .toggle-calendar-btn,
 main .show-more-btn {
   width: 100%;
@@ -177,7 +176,7 @@ main .show-more-btn {
   display: block;
 }
 
-/* Listy w main */
+/* Lists in main */
 main ul {
   padding-left: 1.2rem;
   text-align: left;
@@ -187,7 +186,7 @@ main li {
   margin-bottom: 0.5rem;
 }
 
-/* Cytat dnia */
+/* Quote of the day */
 .quote-of-the-day {
   background-color: #fff8dc;
   padding: 1rem;
@@ -204,11 +203,10 @@ main li {
   border-radius: 0.5rem;
 }
 
-/* Przyciski */
+/* Buttons */
 .menu-toggle, 
 .toggle-calendar-btn,
-.show-more-btn
- {
+.show-more-btn {
   background-color: #ffb347;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -226,31 +224,29 @@ button:hover {
   background-color: #ffa500;
 }
 
-/* Wideo */
+/* Video */
 #myVideo {
   margin: 0.5rem auto;
   padding: 1rem;
   text-align: center;
 }
 
-/* Zadanie na dziś */
+/* Task for today */
 .daily-box {
   margin: 0.5rem auto;
   padding: 1.5rem;
   background-color: #fff8dc;
-
   border-radius: 0.75rem;
   font-size: 1.1rem;
   text-align: center;
   color: #333;
 }
 
-/* Tajemnica różańca */
+/* Rosary mystery */
 .rosary-box {
   margin: 0;
   padding: 1rem;
   background-color: #fff8dc;
-
   border-radius: 0.75rem;
   font-size: 1.1rem;
   text-align: center;
@@ -260,7 +256,7 @@ button:hover {
   justify-content: center;
 }
 
-/* Obrazki / ikony */
+/* Images / icons */
 .mystery {
   width: 100%;
   max-width: 8rem;
@@ -268,7 +264,7 @@ button:hover {
   margin: 0 auto;
 }
 
-/* Element ukryty */
+/* Hidden element */
 #hiddenElement {
   margin-top: 0.5rem;
   padding: 0.5rem;
@@ -412,10 +408,9 @@ button:hover {
   display: block;
   white-space: normal;
   word-wrap: break-word;
-  min-height: 44px; /* Minimalna wysokość dla dotykowych urządzeń */
+  min-height: 44px; /* Minimum height for touch devices */
 }
 
-/* Stylizacja opcji w select */
 .menu-select option {
   background-color: #fff8dc;
   color: #333;
@@ -426,12 +421,10 @@ button:hover {
   line-height: 1.4;
 }
 
-/* Efekt hover dla select */
 .menu-select:hover {
   border-color: #ffcc70;
 }
 
-/* Focus state */
 .menu-select:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
@@ -536,10 +529,10 @@ button:hover {
 .calendar-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 40px); /* 5 KOLUMN po 40px */
-  column-gap: 0.3rem; /* Tylko odstęp między kolumnami */
-  row-gap: 0.5rem;    /* Odstęp między wierszami */
-  justify-content: center; /* Wyśrodkuj siatkę */
+  grid-template-columns: repeat(5, 40px); /* 5 columns of 40px */
+  column-gap: 0.3rem; /* Only space between columns */
+  row-gap: 0.5rem;    /* Space between rows */
+  justify-content: center; /* Center the grid */
 }
 .day-button {
   width: 40px;
@@ -557,7 +550,7 @@ button:hover {
   color: #333;
 }
 
-/* dostępne */
+/* available */
 .day-button.available {
   border-color: #ffb347;
   background-color: #ffcc70;
@@ -569,7 +562,7 @@ button:hover {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* niedostępne */
+/* unavailable */
 .day-button.unavailable {
   border-color: #ecd09e;
   background-color: #fff8dc;
@@ -577,7 +570,7 @@ button:hover {
   cursor: not-allowed;
 }
 
-/* Animacja kliknięcia */
+/* Click animation */
 @keyframes buttonClick {
   0% { transform: scale(1); }
   50% { transform: scale(0.95); }
@@ -588,9 +581,9 @@ button:hover {
   animation: buttonClick 0.2s ease;
 }
 
-/* Media queries dla różnych urządzeń */
+/* Media queries for different devices */
 
-/* Małe telefony (poniżej 360px) */
+/* Small phones (below 360px) */
 @media (max-width: 359px) {
   main {
     padding: 0.5rem;
@@ -630,7 +623,7 @@ button:hover {
   }
 }
 
-/* Telefony (360px - 575px) */
+/* Phones (360px - 575px) */
 @media (min-width: 360px) and (max-width: 575px) {
   main {
     padding: 0.75rem;
@@ -649,7 +642,7 @@ button:hover {
   }
 }
 
-/* Tablety (576px - 767px) */
+/* Tablets (576px - 767px) */
 @media (min-width: 576px) and (max-width: 767px) {
   main {
     padding: 1.25rem;
@@ -672,7 +665,7 @@ button:hover {
   }
 }
 
-/* Tablety w orientacji poziomej i małe laptopy (768px - 991px) */
+/* Tablets in landscape and small laptops (768px - 991px) */
 @media (min-width: 768px) {
   .layout {
     flex-direction: row;
@@ -714,7 +707,7 @@ button:hover {
   }
 }
 
-/* Laptopy (992px +) */
+/* Laptops (992px +) */
 @media (min-width: 992px) {
   .container {
     padding: 2rem;
@@ -745,7 +738,7 @@ button:hover {
   }
 }
 
-/* Duże ekrany (1200px +) */
+/* Large screens (1200px +) */
 @media (min-width: 1200px) {
   .container {
     max-width: 1200px;
@@ -757,7 +750,7 @@ button:hover {
   }
 }
 
-/* Wysokie urządzenia (np. telefony w orientacji pionowej) */
+/* Tall devices (e.g. phones in portrait orientation) */
 @media (max-height: 700px) and (orientation: portrait) {
   header {
     padding: 0.75rem;
@@ -777,7 +770,7 @@ button:hover {
   }
 }
 
-/* Poprawki dla bardzo wąskich ekranów */
+/* Fixes for very narrow screens */
 @media (max-width: 340px) {
   .daily-box,
   .rosary-box,
@@ -812,7 +805,7 @@ button:hover {
   }
 }
 
-/* Poprawki dla tekstu, aby dobrze się zawijał */
+/* Better text wrapping */
 .text-content {
   hyphens: auto;
   word-break: break-word;
@@ -820,7 +813,7 @@ button:hover {
   text-justify: inter-word;
 }
 
-/* Lepsze zarządzanie długimi słowami */
+/* Better handling of long words */
 .daily-box,
 .rosary-box,
 .quote-of-the-day,
@@ -830,20 +823,18 @@ button:hover {
   hyphens: auto;
 }
 
-/* Poprawa wyglądu cytatu */
+/* Improved quote appearance */
 .quote-of-the-day {
   font-style: italic;
   background: linear-gradient(to right, #fff8dc 0%, #fef3c7 100%);
 }
 
-/* Poprawa wyglądu quizu */
+/* Improved quiz appearance */
 .quiz-section {
   background: linear-gradient(to right, #e0f7fa 0%, #b2ebf2 100%);
 }
 
-
-
-/* Animacje ładowania zawartości */
+/* Content loading animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -899,11 +890,13 @@ button:hover {
   }
 }
 
-/* Styl dla strony pomocy */
+/* Help page styles - RESPONSIVENESS */
 .help-page {
   padding: 2rem;
   max-width: 1000px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .help-page h1 {
@@ -912,6 +905,7 @@ button:hover {
   margin-bottom: 2rem;
   border-bottom: 2px solid #ffcc70;
   padding-bottom: 0.5rem;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-content-container {
@@ -919,7 +913,6 @@ button:hover {
   flex-direction: column;
   gap: 1.5rem;
 }
-
 
 .help-item {
   margin: 0 auto;
@@ -938,7 +931,7 @@ button:hover {
 }
 
 .help-text {
-  text-align: left; 
+  text-align: left;
 }
 
 .help-text-content h1,
@@ -951,6 +944,7 @@ button:hover {
   text-align: center;
   border-bottom: 1px solid #e6d6b8;
   padding-bottom: 0.5rem;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-text-content h1 {
@@ -968,7 +962,8 @@ button:hover {
 .help-text-content p {
   margin-bottom: 1rem;
   line-height: 1.6;
-  text-align: justify; 
+  text-align: justify;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-text-content a {
@@ -976,6 +971,7 @@ button:hover {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-text-content a:hover {
@@ -988,11 +984,13 @@ button:hover {
   text-align: left;
   margin: 1rem 0;
   padding-left: 1.5rem;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-text-content li {
   margin-bottom: 0.5rem;
   line-height: 1.5;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-image {
@@ -1016,7 +1014,7 @@ button:hover {
   border: 1px solid #e6d6b8;
 }
 
-
+/* Hover effects */
 .help-item {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -1026,8 +1024,7 @@ button:hover {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
 }
 
-
-
+/* Loading and error states */
 .help-loading,
 .help-error {
   margin: 0 auto;
@@ -1041,6 +1038,7 @@ button:hover {
   box-sizing: border-box;
   border: 2px solid #f0e6d2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-loading {
@@ -1054,50 +1052,324 @@ button:hover {
   border-color: #e6c6a8;
 }
 
-/* Responsywność */
-@media (max-width: 768px) {
-  .help-page {
-    padding: 1rem;
-  }
-  
-  .help-item {
-    padding: 1rem;
-    margin: 0.5rem 0;
-  }
-  
-  .help-text-content h1 {
-    font-size: 1.5rem;
-  }
-  
-  .help-text-content h2 {
-    font-size: 1.3rem;
-  }
-  
-  .help-text-content h3 {
-    font-size: 1.1rem;
-  }
-  
-  .help-image {
-    padding: 1rem;
-  }
-}
+/* MEDIA QUERIES FOR RESPONSIVENESS - same as on the main page */
 
-@media (max-width: 480px) {
+/* Small phones (below 360px) */
+@media (max-width: 359px) {
   .help-page {
     padding: 0.5rem;
   }
   
   .help-item {
-    padding: 0.75rem;
+    padding: 0.9rem;
+    font-size: 1rem;
+    margin: 0.25rem 0;
+  }
+  
+  .help-text-content h1 {
+    font-size: 1.3rem;
+  }
+  
+  .help-text-content h2 {
+    font-size: 1.1rem;
+  }
+  
+  .help-text-content h3 {
     font-size: 1rem;
   }
   
-  .help-text-content p {
-    text-align: left; 
+  .help-image {
+    padding: 0.9rem;
+  }
+  
+  .help-image-element {
+    max-width: 100%;
   }
 }
 
+/* Phones (360px - 575px) */
+@media (min-width: 360px) and (max-width: 575px) {
+  .help-page {
+    padding: 0.75rem;
+  }
+  
+  .help-item {
+    padding: 1rem;
+    font-size: 1.05rem;
+  }
+  
+  .help-content-container {
+    gap: 1.25rem;
+  }
+  
+  .help-image {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .help-image-container {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .help-image-element {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e6d6b8;
+    display: block;
+  }
+}
+
+/* Tablets (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .help-page {
+    padding: 1.25rem;
+  }
+  
+  .help-item {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .help-content-container {
+    gap: 1.75rem;
+  }
+  
+  .help-image-element {
+    max-width: 100%;
+  }
+}
+
+/* Tablets in landscape and small laptops (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  nav {
+    width: 180px;
+    max-width: 180px;
+    padding: 0.6rem;
+    margin: 0.8rem;
+  }
+  
+  nav ul {
+    gap: 0.3rem;
+  }
+  
+  nav ul li a {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.85rem;
+    border-radius: 0.4rem;
+  }
+  
+  .menu-select {
+    max-width: 160px;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    min-height: 40px;
+  }
+  
+  .menu-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .menu-label {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(5, 32px);
+    column-gap: 0.2rem;
+    row-gap: 0.4rem;
+  }  
+        
+  .day-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .help-page {
+    padding: 1.25rem 0.8rem;
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  .help-content-container {
+    max-width: 100%;
+    margin: 0;
+    gap: 1.5rem;
+  }
+  
+  .help-item {
+    padding: 1.25rem;
+    margin: 0.4rem 0;
+    border-radius: 0.8rem;
+  }
+  
+  .help-image-element {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .help-text-content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .help-text-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.9rem;
+  }
+  
+  .help-text-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .help-text-content p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 0.9rem;
+  }
+  
+  .help-text-content ul,
+  .help-text-content ol {
+    margin: 0.9rem 0;
+    padding-left: 1.8rem;
+  }
+  
+  .help-text-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+}
+
+/* Laptops (992px +) */
+@media (min-width: 992px) {
+  .help-page {
+    padding: 1.75rem 1.25rem;
+    max-width: 100%;
+  }
+  
+  .help-content-container {
+    max-width: 98%;
+    margin: 0 auto;
+  }
+  
+  .help-item {
+    padding: 1.75rem;
+  }
+  
+  .help-image-element {
+    max-width: 100%;
+  }
+}
+
+/* Large screens (1200px +) */
+@media (min-width: 1200px) {
+  .help-page {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+  
+  .help-content-container {
+    max-width: 100%;
+  }
+  
+  .help-item {
+    padding: 2.25rem;
+  }
+  
+  .help-image-element {
+    max-width: 100%;
+  }
+}
+
+/* Laptops (992px +) */
+@media (min-width: 992px) {
+  .help-page {
+    padding: 2rem;
+  }
+  
+  .help-content-container {
+    max-width: 100%;
+  }
+  
+  .help-item {
+    padding: 1.75rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Large screens (1200px +) */
+@media (min-width: 1200px) {
+  .help-page {
+    max-width: 100%;
+  }
+  
+  .help-content-container {
+    max-width: 100%;
+  }
+}
+
+/* Tall devices (e.g. phones in portrait orientation) */
+@media (max-height: 700px) and (orientation: portrait) {
+  .help-page {
+    padding: 1rem;
+  }
+  
+  .help-item {
+    padding: 1rem;
+  }
+}
+
+/* Fixes for very narrow screens */
+@media (max-width: 340px) {
+  .help-page {
+    padding: 0.5rem;
+  }
+  
+  .help-item {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+  
+  .help-text-content h1 {
+    font-size: 1.2rem;
+  }
+  
+  .help-text-content h2 {
+    font-size: 1rem;
+  }
+  
+  .help-image-element {
+    max-width: 100%;
+  }
+}
+
+/* Better text wrapping */
+.help-text-content {
+  hyphens: auto;
+  word-break: break-word;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Better handling of long words */
+.help-item {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Help button style */
 .help-section {
   margin-top: 2rem;
   text-align: center;
@@ -1119,7 +1391,7 @@ button:hover {
   gap: 0.5rem;
   box-shadow: 0 4px 8px rgba(139, 90, 43, 0.3);
   font-weight: 500;
-  font-family: inherit;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .help-btn:hover {
@@ -1132,11 +1404,94 @@ button:hover {
   transform: translateY(0);
 }
 
+/* Help button responsiveness */
 @media (max-width: 768px) {
   .help-btn {
     width: 100%;
     max-width: 280px;
     justify-content: center;
     padding: 0.85rem 1.5rem;
+    font-size: 1rem;
   }
 }
+
+@media (max-width: 480px) {
+  .help-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Content loading animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.help-item {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 ratio (9 / 16 = 0.5625) */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Laptops (992px - 1200px) - Advanced menu optimization */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .help-page {
+    padding: 1.5rem 1rem;
+    max-width: calc(100% - 100px);
+  }
+  
+  .help-content-container {
+    gap: 1.25rem;
+    max-width: 100%;
+  }
+  
+  .help-item {
+    padding: 1.25rem;
+    border-radius: 0.65rem;
+  }
+  
+  .help-text-content h1 {
+    font-size: 1.55rem;
+  }
+  
+  .help-text-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .help-text-content h3 {
+    font-size: 1.15rem;
+  }
+  
+  .help-text-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .help-image-element {
+    max-width: 85%;
+  }
+  
+  .help-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.98rem;
+    border-radius: 0.65rem;
+  }
