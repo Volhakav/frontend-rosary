@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 export default function DayDetails() {
-  const { part, secret, dayId } = useParams();
+  const { part, secret } = useParams();
+  const location = useLocation();
+
+  const dayId = location.state?.dayId || 1;
+
   const [dayData, setDayData] = useState(null);
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [showTaskContent, setShowTaskContent] = useState(false);
+
 
   const fetchDayData = () => {
     console.log("Pobieranie danych...", new Date().toLocaleTimeString());

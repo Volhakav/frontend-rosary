@@ -13,7 +13,7 @@ function App() {
         <main>
           <Routes>
            
-            <Route path="/dzien/:part/:secret/:dayId" element={<DayDetails />} />
+            <Route path="/:part/:secret" element={<DayDetails />} />
             <Route path="/pomoc" element={<HelpPage />} /> 
           </Routes>
         </main>

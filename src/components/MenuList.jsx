@@ -63,7 +63,7 @@ export default function MenuList() {
   }, [selectedPart, selectedSecret]);
 
   const handleDaySelect = (day) => {
-    navigate(`/dzien/${selectedPart}/${selectedSecret}/${day}`);
+    navigate(`/${selectedPart}/${selectedSecret}`, { state: { dayId: day } });
   };
 
   // Funkcja do otwierania strony pomocy
