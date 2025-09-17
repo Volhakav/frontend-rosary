@@ -15,7 +15,7 @@ export default function DayDetails() {
 
   const fetchDayData = () => {
     console.log("Pobieranie danych...", new Date().toLocaleTimeString());
-    fetch(`https://zrdzieci.diecezja.pl/api/posts/${part}/${secret}/${dayId}`)
+    fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Błąd pobierania dnia");
         return res.json();

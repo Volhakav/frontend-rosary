@@ -12,7 +12,7 @@ const HelpPage = () => {
   const fetchHelpData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://zrdzieci.diecezja.pl/api/help');
+      const response = await fetch('https://rosary-backend.onrender.com/help');
       if (!response.ok) throw new Error('Błąd pobierania pomocy');
       const data = await response.json();
       setHelpData(data);
