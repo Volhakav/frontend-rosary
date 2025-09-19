@@ -1,101 +1,87 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useLocation } from "react-router-dom";
 
 export default function DayDetails() {
   const { part, secret } = useParams();
   const location = useLocation();
-
   const dayId = location.state?.dayId || 1;
 
   const [dayData, setDayData] = useState(null);
-  const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const [showTaskContent, setShowTaskContent] = useState(false);
 
+  const getYouTubeEmbedUrl = useCallback((url) => {
+    if (!url) return "";
+    let cleanUrl = url.toString().trim().replace("www.youtube.com", "youtube.com");
+    try {
+      if (cleanUrl.includes("youtube.com/watch?v=")) {
+        const videoId = new URL(cleanUrl).searchParams.get("v");
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+      }
+      if (cleanUrl.includes("youtu.be/")) {
+        const videoId = new URL(cleanUrl).pathname.replace("/", "");
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+      }
+      if (cleanUrl.includes("/embed/")) return cleanUrl;
+    } catch {
+      return "";
+    }
+    return "";
+  }, []);
 
-  const fetchDayData = () => {
-    console.log("Pobieranie danych...", new Date().toLocaleTimeString());
-    fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Błąd pobierania dnia");
-        return res.json();
-      })
-      .then((data) => {
-        setDayData(data);
-        setTitle(data.title);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching day details:", error);
-        setLoading(false);
-      });
-  };
+  const fetchDayData = useCallback(() => {
+    fetch(`http://localhost:3000/posts/${part}/${secret}/${dayId}`)
+      .then((res) => res.ok ? res.json() : Promise.reject("Błąd pobierania dnia"))
+      .then(setDayData)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [part, secret, dayId]);
 
   useEffect(() => {
     fetchDayData();
-    const interval = setInterval(() => {
-      fetchDayData();
-    }, 60000);
+    const interval = setInterval(fetchDayData, 60000);
     return () => clearInterval(interval);
-  }, [part, secret, dayId]);
+  }, [fetchDayData]);
 
-  const renderItem = (item, index) => {
-    switch (item.type) {
+  const VideoComponent = ({ item }) => {
+    const embedUrl = getYouTubeEmbedUrl(item.value);
+    if (!embedUrl) return (
+      <div className="video-container" id={`video-${item.id}`}>
+        <a href={item.value} target="_blank" rel="noopener noreferrer">Otwórz wideo</a>
+      </div>
+    );
+
+    return (
+      <div className="video-container" id={`video-${item.id}`}>
+        <iframe
+          key={embedUrl}
+          width="100%"
+          height="360"
+          src={embedUrl}
+          title={`YouTube video ${item.id}`}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  };
+
+  const renderItem = (item) => {
+    let type = item.type;
+    if ((item.value.includes("youtube.com") || item.value.includes("youtu.be")) && item.type === "Game") type = "Video";
+
+    switch (type) {
       case "Text":
-        return (
-          <div
-            key={`${item.type}-${index}-${item.id}`}
-            dangerouslySetInnerHTML={{ __html: item.value }}
-          />
-        );
+        return <div key={item.id} className="text-item" dangerouslySetInnerHTML={{ __html: item.value }} />;
       case "Image":
-        return (
-          <img
-            key={`${item.type}-${index}-${item.id}`}
-            src={item.value}
-            alt={item.options?.alt || "Obraz"}
-            className="mystery"
-          />
-        );
+        return <img key={item.id} className="mystery" src={item.value} alt={item.options?.alt || "Obraz"} />;
       case "Video":
-        let cleanUrl = item.value;
-        if (cleanUrl.startsWith("hhttps://")) {
-          cleanUrl = cleanUrl.replace("hhttps://", "https://");
-        }
-
-        let embedUrl = cleanUrl;
-        if (cleanUrl.includes("youtube.com/watch?v=")) {
-          const videoId = cleanUrl.split("v=")[1].split("&")[0];
-          embedUrl = `https://www.youtube.com/embed/${videoId}`;
-        } else if (cleanUrl.includes("youtu.be/")) {
-          const videoId = cleanUrl.split("youtu.be/")[1].split("?")[0];
-          embedUrl = `https://www.youtube.com/embed/${videoId}`;
-        }
-
-        return (
-          <div key={`${item.type}-${index}-${item.id}`} className="video-container">
-            <iframe
-              width="100%"
-              height="360"
-              src={embedUrl}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        );
-
+        return <VideoComponent item={item} />;
       case "Game":
         return (
-          <div key={`${item.type}-${index}-${item.id}`} className="game-container">
-            <iframe
-              src={item.value}
-              title="Gra"
-              width="100%"
-              height="360"
-              frameBorder="0"
-              allowFullScreen></iframe>
+          <div className="game-container" id={`game-${item.id}`}>
+            <iframe src={item.value} title={`Game ${item.id}`} width="100%" height="360" frameBorder="0" allowFullScreen />
           </div>
         );
       default:
@@ -109,66 +95,35 @@ export default function DayDetails() {
   const mysteryItems = dayData.data || [];
   const taskItems = dayData.task || [];
   const quoteItems = dayData.quote || [];
-
-  const hasMediaContent = taskItems.some(item => 
-    item.type === "Video" || item.type === "Game"
-  );
+  const hasMediaContent = taskItems.some((item) => item.type === "Video" || item.type === "Game");
 
   return (
     <div className="day-details-container">
-      {/* Sekcja z tajemnicami */}
       <section className="rosary-box">
-        <h2>{title}</h2>
-        {mysteryItems.map((item, index) => (
-          <React.Fragment key={`mystery-${index}-${item.id}`}>
-            {renderItem(item, index)}
-          </React.Fragment>
-        ))}
+        <h2>{dayData.title}</h2>
+        {mysteryItems.map((item) => renderItem(item))}
+        <h3>Dzień {dayData.index}</h3>
       </section>
 
       {quoteItems.length > 0 && (
         <section className="quote-box">
-          <h3>Refleksja i modlitwa</h3>
-          {quoteItems.map((item, index) => (
-            <React.Fragment key={`quote-${index}-${item.id}`}>
-              {renderItem(item, index)}
-            </React.Fragment>
-          ))}
+          {quoteItems.map((item) => renderItem(item))}
         </section>
       )}
 
-      {/* Sekcja z zadaniami - tylko jeśli są jakieś zadania */}
       {taskItems.length > 0 && (
         <section id="daily-message" className="daily-box">
-          <h3>Dzień {dayData.index}</h3>
-          
-          {/* Jeśli nie ma mediów, pokaż od razu zawartość */}
           {!hasMediaContent ? (
-            <div>
-              {taskItems.map((item, index) => (
-                <React.Fragment key={`task-${index}-${item.id}`}>
-                  {renderItem(item, index)}
-                </React.Fragment>
-              ))}
-            </div>
+            taskItems.map((item) => renderItem(item))
           ) : (
-           
             <>
               {!showTaskContent ? (
-                <button 
-                  onClick={() => setShowTaskContent(true)} 
-                  id="showButton"
-                  className="show-more-btn"
-                >
+                <button onClick={() => setShowTaskContent(true)} id="showButton" className="show-more-btn">
                   Pokaż zadanie
                 </button>
               ) : (
                 <div id="hiddenElement">
-                  {taskItems.map((item, index) => (
-                    <React.Fragment key={`task-${index}-${item.id}`}>
-                      {renderItem(item, index)}
-                    </React.Fragment>
-                  ))}
+                  {taskItems.map((item) => renderItem(item))}
                 </div>
               )}
             </>

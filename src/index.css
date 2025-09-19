@@ -20,10 +20,21 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Comic Sans MS', 'Comic Neue', sans-serif;
   background-color: #fdf6e3;
   color: #333;
   min-height: 100vh;
+}
+
+body {
+  font-feature-settings: "kern", "liga";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body, html {
+  line-height: 1.4;
+  vertical-align: baseline;
 }
 
 /* Main layout */
