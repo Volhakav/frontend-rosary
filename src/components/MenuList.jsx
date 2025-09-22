@@ -46,7 +46,7 @@ export default function MenuList() {
   const fetchDays = async (part, secret) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/posts/${part}/${secret}`);
+      const response = await fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}`);
       if (!response.ok) throw new Error("Błąd pobierania dni");
       const data = await response.json();
       setDays(data);

@@ -30,7 +30,7 @@ export default function DayDetails() {
   }, []);
 
   const fetchDayData = useCallback(() => {
-    fetch(`http://localhost:3000/posts/${part}/${secret}/${dayId}`)
+    fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`)
       .then((res) => res.ok ? res.json() : Promise.reject("Błąd pobierania dnia"))
       .then(setDayData)
       .catch(console.error)
