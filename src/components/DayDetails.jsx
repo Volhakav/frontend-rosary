@@ -54,7 +54,7 @@ export default function DayDetails() {
     return (
       <div className="video-container" id={`video-${item.id}`}>
         <iframe
-          key={embedUrl}
+          key={item.id}
           width="100%"
           height="360"
           src={embedUrl}
@@ -77,10 +77,10 @@ export default function DayDetails() {
       case "Image":
         return <img key={item.id} className="mystery" src={item.value} alt={item.options?.alt || "Obraz"} />;
       case "Video":
-        return <VideoComponent item={item} />;
+        return <VideoComponent key={item.id} item={item} />;
       case "Game":
         return (
-          <div className="game-container" id={`game-${item.id}`}>
+          <div key={item.id} className="game-container" id={`game-${item.id}`}>
             <iframe src={item.value} title={`Game ${item.id}`} width="100%" height="360" frameBorder="0" allowFullScreen />
           </div>
         );
@@ -95,38 +95,45 @@ export default function DayDetails() {
   const mysteryItems = dayData.data || [];
   const taskItems = dayData.task || [];
   const quoteItems = dayData.quote || [];
-  const hasMediaContent = taskItems.some((item) => item.type === "Video" || item.type === "Game");
+
+  // Podział elementów: zdjęcia i reszta
+  const images = mysteryItems.filter(item => item.type === "Image");
+  const otherItems = mysteryItems.filter(item => item.type !== "Image");
 
   return (
     <div className="day-details-container">
       <section className="rosary-box">
         <h2>{dayData.title}</h2>
-        {mysteryItems.map((item) => renderItem(item))}
-        <h3>Dzień {dayData.index}</h3>
+        {mysteryItems.map((item, index) => (
+          <React.Fragment key={item.id}>
+            {renderItem(item)}
+            {item.type === "Image" && !mysteryItems.slice(0, index).some(i => i.type === "Image") && (
+              <h3>Dzień {dayData.index}</h3>
+            )}
+          </React.Fragment>
+        ))}
       </section>
 
       {quoteItems.length > 0 && (
         <section className="quote-box">
-          {quoteItems.map((item) => renderItem(item))}
+          {quoteItems.map(item => renderItem(item))}
         </section>
       )}
 
       {taskItems.length > 0 && (
         <section id="daily-message" className="daily-box">
-          {!hasMediaContent ? (
-            taskItems.map((item) => renderItem(item))
+          {!showTaskContent ? (
+            <button
+              onClick={() => setShowTaskContent(true)}
+              id="showButton"
+              className="show-more-btn"
+            >
+              Zobacz
+            </button>
           ) : (
-            <>
-              {!showTaskContent ? (
-                <button onClick={() => setShowTaskContent(true)} id="showButton" className="show-more-btn">
-                  Pokaż zadanie
-                </button>
-              ) : (
-                <div id="hiddenElement">
-                  {taskItems.map((item) => renderItem(item))}
-                </div>
-              )}
-            </>
+            <div id="hiddenElement">
+              {taskItems.map(item => renderItem(item))}
+            </div>
           )}
         </section>
       )}

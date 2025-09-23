@@ -1,5 +1,5 @@
 :root {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /*font-family: Comfortaa, sans-serif;*/
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -20,7 +20,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Neue', 'Nunito', Arial, sans-serif;
+  font-family: 'Comic Sans MS';
   background-color: #fdf6e3;
   color: #333;
   min-height: 100vh;
@@ -169,14 +169,14 @@ main {
 }
 
 /* Headings in main */
-main h2, 
-main h3 {
+main h2 {
   text-align: center;
   color: #333;
   margin-top: 0;
   padding-bottom: 0.5rem;
   width: 100%;
 }
+
 
 /* Buttons in main */
 main .toggle-calendar-btn,
@@ -242,6 +242,17 @@ button:hover {
   text-align: center;
 }
 
+
+.rosary-box p {
+  margin-top: 0.6em;   
+  margin-bottom: 0.6em;
+}
+
+.daily-box p {
+  margin-top: 0.6em;   
+  margin-bottom: 0.6em;
+}
+
 /* Task for today */
 .daily-box {
   margin: 0.5rem auto;
@@ -249,7 +260,7 @@ button:hover {
   background-color: #fff8dc;
   border-radius: 0.75rem;
   font-size: 1.1rem;
-  text-align: center;
+  text-align: justify;
   color: #333;
 }
 
@@ -340,6 +351,7 @@ button:hover {
   margin: 20px 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   font-style: italic;
+  text-align: justify;
 }
 
 .quote-box h3 {
@@ -1505,5 +1517,11 @@ button:hover {
     padding: 0.75rem 1.5rem;
     font-size: 0.98rem;
     border-radius: 0.65rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-family: 'Comfortaa', Arial, sans-serif;
   }
 }
