@@ -246,6 +246,7 @@ button:hover {
 .rosary-box p {
   margin-top: 0.6em;   
   margin-bottom: 0.6em;
+  text-align: center;
 }
 
 .daily-box p {

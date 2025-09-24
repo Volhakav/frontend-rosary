@@ -4,12 +4,42 @@ import { useParams, useLocation } from "react-router-dom";
 export default function DayDetails() {
   const { part, secret } = useParams();
   const location = useLocation();
-  const dayId = location.state?.dayId || 1;
 
+  // Funkcja pomocnicza do ograniczenia dnia do 30
+  const getValidDayId = (dayOfMonth) => Math.min(dayOfMonth, 30);
+
+  // Oblicz dzisiejszy dzień miesiąca
+  const today = new Date();
+  const initialDayId = getValidDayId(today.getDate());
+
+  // dayId jest ustawiane na location.state?.dayId lub na dzisiejszy dzień (maks 30)
+  const [dayId, setDayId] = useState(location.state?.dayId || initialDayId);
   const [dayData, setDayData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTaskContent, setShowTaskContent] = useState(false);
 
+  // Reset dayId przy zmianie part lub secret
+  useEffect(() => {
+    setDayId(getValidDayId(today.getDate()));
+  }, [part, secret]);
+
+  // Funkcja do pobrania danych dnia
+  const fetchDayData = useCallback(() => {
+    setLoading(true);
+    fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`)
+      .then((res) => res.ok ? res.json() : Promise.reject("Błąd pobierania dnia"))
+      .then(setDayData)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [part, secret, dayId]);
+
+  useEffect(() => {
+    fetchDayData();
+    const interval = setInterval(fetchDayData, 60000); // odśwież co minutę
+    return () => clearInterval(interval);
+  }, [fetchDayData]);
+
+  // Funkcja do generowania embed URL YouTube
   const getYouTubeEmbedUrl = useCallback((url) => {
     if (!url) return "";
     let cleanUrl = url.toString().trim().replace("www.youtube.com", "youtube.com");
@@ -28,20 +58,6 @@ export default function DayDetails() {
     }
     return "";
   }, []);
-
-  const fetchDayData = useCallback(() => {
-    fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`)
-      .then((res) => res.ok ? res.json() : Promise.reject("Błąd pobierania dnia"))
-      .then(setDayData)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [part, secret, dayId]);
-
-  useEffect(() => {
-    fetchDayData();
-    const interval = setInterval(fetchDayData, 60000);
-    return () => clearInterval(interval);
-  }, [fetchDayData]);
 
   const VideoComponent = ({ item }) => {
     const embedUrl = getYouTubeEmbedUrl(item.value);
@@ -73,17 +89,26 @@ export default function DayDetails() {
 
     switch (type) {
       case "Text":
-        return <div key={item.id} className="text-item" dangerouslySetInnerHTML={{ __html: item.value }} />;
+        return item.value ? (
+          <div
+            key={item.id}
+            className="text-item"
+            style={{ textAlign: "justify", lineHeight: "1.3" }}
+            dangerouslySetInnerHTML={{ __html: item.value }}
+          />
+        ) : null;
       case "Image":
-        return <img key={item.id} className="mystery" src={item.value} alt={item.options?.alt || "Obraz"} />;
+        return item.value ? (
+          <img key={item.id} className="mystery" src={item.value} alt={item.options?.alt || "Obraz"} />
+        ) : null;
       case "Video":
         return <VideoComponent key={item.id} item={item} />;
       case "Game":
-        return (
+        return item.value ? (
           <div key={item.id} className="game-container" id={`game-${item.id}`}>
             <iframe src={item.value} title={`Game ${item.id}`} width="100%" height="360" frameBorder="0" allowFullScreen />
           </div>
-        );
+        ) : null;
       default:
         return null;
     }
@@ -96,17 +121,15 @@ export default function DayDetails() {
   const taskItems = dayData.task || [];
   const quoteItems = dayData.quote || [];
 
-  // Podział elementów: zdjęcia i reszta
-  const images = mysteryItems.filter(item => item.type === "Image");
-  const otherItems = mysteryItems.filter(item => item.type !== "Image");
-
   return (
     <div className="day-details-container">
       <section className="rosary-box">
         <h2>{dayData.title}</h2>
+
         {mysteryItems.map((item, index) => (
           <React.Fragment key={item.id}>
             {renderItem(item)}
+
             {item.type === "Image" && !mysteryItems.slice(0, index).some(i => i.type === "Image") && (
               <h3>Dzień {dayData.index}</h3>
             )}

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import DayDetails from './DayDetails';
 import MenuList from './MenuList';
 
-export default function Menu() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return(
+export default function MainPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="container">
         <div>
             <nav className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <button className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
@@ -14,5 +14,9 @@ export default function Menu() {
                 <MenuList />
             </nav>
         </div>
-    );
+        <main>
+            <DayDetails/>
+        </main>
+    </div>
+  );
 }
