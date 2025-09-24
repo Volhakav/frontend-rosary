@@ -110,7 +110,7 @@ nav ul li a:hover {
 
 /* Main content - RESPONSIVENESS IMPROVEMENTS */
 main {
-  padding: 1rem;
+
   border-radius: 0.5rem;
   flex: 1;
   order: 1;
@@ -609,9 +609,7 @@ button:hover {
 
 /* Small phones (below 360px) */
 @media (max-width: 359px) {
-  main {
-    padding: 0.5rem;
-  }
+
   
   .daily-box,
   .rosary-box,
@@ -649,9 +647,7 @@ button:hover {
 
 /* Phones (360px - 575px) */
 @media (min-width: 360px) and (max-width: 575px) {
-  main {
-    padding: 0.75rem;
-  }
+  
   
   .daily-box,
   .rosary-box,
@@ -668,9 +664,7 @@ button:hover {
 
 /* Tablets (576px - 767px) */
 @media (min-width: 576px) and (max-width: 767px) {
-  main {
-    padding: 1.25rem;
-  }
+ 
   
   .daily-box,
   .rosary-box,
@@ -711,7 +705,7 @@ button:hover {
   main {
     order: 2;
     flex: 1;
-    padding: 1.5rem;
+
   }
   
   nav ul {
