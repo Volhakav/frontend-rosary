@@ -1,22 +1,9 @@
-import { useState } from 'react';
-import DayDetails from './DayDetails';
-import MenuList from './MenuList';
+import DayDetails from "./DayDetails";
 
 export default function MainPage() {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="container">
-        <div>
-            <nav className={`sidebar ${isOpen ? 'open' : ''}`}>
-                <button className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
-                    ☰ Menu
-                </button>
-                <MenuList />
-            </nav>
-        </div>
-        <main>
-            <DayDetails/>
-        </main>
+    <div className="main-page">
+      <DayDetails />
     </div>
   );
 }

@@ -704,7 +704,6 @@ button:hover {
     width: 250px;
     max-width: 250px;
     order: 1;
-    margin: 1rem;
     flex-shrink: 0;
   }
   
@@ -1178,14 +1177,13 @@ button:hover {
     width: 180px;
     max-width: 180px;
     padding: 0.6rem;
-    margin: 0.8rem;
   }
   
   nav ul {
     gap: 0.3rem;
   }
   
-  nav ul li a {
+  nav ul li a { 
     padding: 0.35rem 0.7rem;
     font-size: 0.85rem;
     border-radius: 0.4rem;
@@ -1419,7 +1417,7 @@ button:hover {
 }
 
 .help-btn:hover {
-  background: linear-gradient(to bottom, #6b4423, #5a3921);
+  background: #ffa601;
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(139, 90, 43, 0.4);
 }

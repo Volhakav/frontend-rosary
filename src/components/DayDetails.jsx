@@ -5,7 +5,7 @@ export default function DayDetails() {
   const { part, secret } = useParams();
   const location = useLocation();
 
-  // Function that limits the day to 30
+  // Limit the day to max 30
   const getValidDayId = (dayOfMonth) => Math.min(dayOfMonth, 30);
 
   const today = new Date();
@@ -17,12 +17,12 @@ export default function DayDetails() {
   const [loading, setLoading] = useState(true);
   const [showTaskContent, setShowTaskContent] = useState(false);
 
-  // Reset task content button on day, part, or secret change
+  // Reset task content when user changes day, part, or secret
   useEffect(() => {
     setShowTaskContent(false);
   }, [dayId, secret, part]);
 
-  // Reset dayId when part or secret changes, but respect chosen day if passed in state
+  // Reset dayId when part or secret changes, but respect chosen day if passed
   useEffect(() => {
     if (location.state?.dayId) {
       setDayId(location.state.dayId);
@@ -31,32 +31,39 @@ export default function DayDetails() {
     }
   }, [part, secret, location.state]);
 
-  // Fetch day data safely
-  const fetchDayData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`
-      );
-      if (!res.ok) throw new Error("Failed to fetch day data");
-      const text = await res.text(); // safer than res.json()
-      if (!text) {
-        setDayData(null);
-        return;
-      }
-      const data = JSON.parse(text);
-      setDayData(data);
-    } catch (err) {
-      console.error(err);
-      setDayData(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [part, secret, dayId]);
+  // Fetch day data, optionally with loader
+  const fetchDayData = useCallback(
+    async (showLoader = false) => {
+      if (showLoader) setLoading(true);
 
+      try {
+        const res = await fetch(
+          `https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`
+        );
+        if (!res.ok) throw new Error("Failed to fetch day data");
+
+        const text = await res.text(); // safer than res.json()
+        if (!text) {
+          setDayData(null);
+          return;
+        }
+
+        const data = JSON.parse(text);
+        setDayData(data);
+      } catch (err) {
+        console.error(err);
+        setDayData(null);
+      } finally {
+        if (showLoader) setLoading(false);
+      }
+    },
+    [part, secret, dayId]
+  );
+
+  // Initial fetch with loader, silent refresh every 60s
   useEffect(() => {
-    fetchDayData();
-    const interval = setInterval(fetchDayData, 60000); // refresh every minute
+    fetchDayData(true); // first load with loader
+    const interval = setInterval(() => fetchDayData(false), 60000);
     return () => clearInterval(interval);
   }, [fetchDayData]);
 
