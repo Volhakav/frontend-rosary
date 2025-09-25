@@ -5,61 +5,62 @@ export default function DayDetails() {
   const { part, secret } = useParams();
   const location = useLocation();
 
-  // Function to limit the day to a maximum of 30
+  // Function that limits the day to 30
   const getValidDayId = (dayOfMonth) => Math.min(dayOfMonth, 30);
 
   const today = new Date();
   const initialDayId = getValidDayId(today.getDate());
 
-  // Initialize dayId from location.state or today's date (max 30)
+  // Day comes either from navigation state or defaults to today's date
   const [dayId, setDayId] = useState(location.state?.dayId || initialDayId);
   const [dayData, setDayData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTaskContent, setShowTaskContent] = useState(false);
 
-  // Reset "Show" button visibility when day, secret, or part changes
+  // Reset task content button on day, part, or secret change
   useEffect(() => {
     setShowTaskContent(false);
   }, [dayId, secret, part]);
 
-  // Reset dayId when part or secret changes
+  // Reset dayId when part or secret changes, but respect chosen day if passed in state
   useEffect(() => {
-    setDayId(getValidDayId(today.getDate()));
-  }, [part, secret]);
+    if (location.state?.dayId) {
+      setDayId(location.state.dayId);
+    } else {
+      setDayId(getValidDayId(today.getDate()));
+    }
+  }, [part, secret, location.state]);
 
-  // Fetch daily data with handling for empty or invalid JSON
-  const fetchDayData = useCallback(() => {
+  // Fetch day data safely
+  const fetchDayData = useCallback(async () => {
     setLoading(true);
-    fetch(`https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`)
-      .then(res => {
-        if (!res.ok) return Promise.reject(`Failed to fetch day: ${res.status}`);
-        return res.text(); // get response as text to avoid JSON errors
-      })
-      .then(text => {
-        if (!text) return null; // empty response
-        try {
-          return JSON.parse(text); // try to parse JSON
-        } catch {
-          console.error("Invalid JSON:", text);
-          return null;
-        }
-      })
-      .then(setDayData)
-      .catch(err => {
-        console.error(err);
+    try {
+      const res = await fetch(
+        `https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch day data");
+      const text = await res.text(); // safer than res.json()
+      if (!text) {
         setDayData(null);
-      })
-      .finally(() => setLoading(false));
+        return;
+      }
+      const data = JSON.parse(text);
+      setDayData(data);
+    } catch (err) {
+      console.error(err);
+      setDayData(null);
+    } finally {
+      setLoading(false);
+    }
   }, [part, secret, dayId]);
 
-  // Automatically fetch data on mount and every minute
   useEffect(() => {
     fetchDayData();
-    const interval = setInterval(fetchDayData, 60000);
+    const interval = setInterval(fetchDayData, 60000); // refresh every minute
     return () => clearInterval(interval);
   }, [fetchDayData]);
 
-  // Generate YouTube embed URL from various formats
+  // Generate YouTube embed link
   const getYouTubeEmbedUrl = useCallback((url) => {
     if (!url) return "";
     let cleanUrl = url.toString().trim().replace("www.youtube.com", "youtube.com");
@@ -79,14 +80,17 @@ export default function DayDetails() {
     return "";
   }, []);
 
-  // Component to render a YouTube video or fallback link
+  // Video renderer
   const VideoComponent = ({ item }) => {
     const embedUrl = getYouTubeEmbedUrl(item.value);
-    if (!embedUrl) return (
-      <div className="video-container" id={`video-${item.id}`}>
-        <a href={item.value} target="_blank" rel="noopener noreferrer">Open video</a>
-      </div>
-    );
+    if (!embedUrl)
+      return (
+        <div className="video-container" id={`video-${item.id}`}>
+          <a href={item.value} target="_blank" rel="noopener noreferrer">
+            Open video
+          </a>
+        </div>
+      );
 
     return (
       <div className="video-container" id={`video-${item.id}`}>
@@ -104,10 +108,14 @@ export default function DayDetails() {
     );
   };
 
-  // Function to render different types of items (Text, Image, Video, Game)
+  // Generic item renderer
   const renderItem = (item) => {
     let type = item.type;
-    if ((item.value.includes("youtube.com") || item.value.includes("youtu.be")) && item.type === "Game") type = "Video";
+    if (
+      (item.value.includes("youtube.com") || item.value.includes("youtu.be")) &&
+      item.type === "Game"
+    )
+      type = "Video";
 
     switch (type) {
       case "Text":
@@ -121,14 +129,26 @@ export default function DayDetails() {
         ) : null;
       case "Image":
         return item.value ? (
-          <img key={item.id} className="mystery" src={item.value} alt={item.options?.alt || "Image"} />
+          <img
+            key={item.id}
+            className="mystery"
+            src={item.value}
+            alt={item.options?.alt || "Image"}
+          />
         ) : null;
       case "Video":
         return <VideoComponent key={item.id} item={item} />;
       case "Game":
         return item.value ? (
           <div key={item.id} className="game-container" id={`game-${item.id}`}>
-            <iframe src={item.value} title={`Game ${item.id}`} width="100%" height="360" frameBorder="0" allowFullScreen />
+            <iframe
+              src={item.value}
+              title={`Game ${item.id}`}
+              width="100%"
+              height="360"
+              frameBorder="0"
+              allowFullScreen
+            />
           </div>
         ) : null;
       default:
@@ -152,17 +172,17 @@ export default function DayDetails() {
           <React.Fragment key={item.id}>
             {renderItem(item)}
 
-            {/* Display day number only once if there is an image */}
-            {item.type === "Image" && !mysteryItems.slice(0, index).some(i => i.type === "Image") && (
-              <h3>Dzień {dayData.index}</h3>
-            )}
+            {item.type === "Image" &&
+              !mysteryItems.slice(0, index).some((i) => i.type === "Image") && (
+                <h3>Dzień {dayData.index}</h3>
+              )}
           </React.Fragment>
         ))}
       </section>
 
       {quoteItems.length > 0 && (
         <section className="quote-box">
-          {quoteItems.map(item => renderItem(item))}
+          {quoteItems.map((item) => renderItem(item))}
         </section>
       )}
 
@@ -178,7 +198,7 @@ export default function DayDetails() {
             </button>
           ) : (
             <div id="hiddenElement">
-              {taskItems.map(item => renderItem(item))}
+              {taskItems.map((item) => renderItem(item))}
             </div>
           )}
         </section>

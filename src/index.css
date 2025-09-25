@@ -537,6 +537,12 @@ button:hover {
   max-width: 100%;
   animation: fadeIn 0.3s ease-out;
 }
+.daily-box .mystery {
+  max-width: 100%;  
+  height: auto;
+  display: block;
+  margin: 0 auto;   
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
@@ -1396,7 +1402,7 @@ button:hover {
 }
 
 .help-btn {
-  background: linear-gradient(to bottom, #8b5a2b, #6b4423);
+  background: #d68d04; /*linear-gradient(to bottom, #8b5a2b, #6b4423);*/
   color: white;
   padding: 1rem 2rem;
   font-size: 1.1rem;

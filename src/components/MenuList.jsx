@@ -61,7 +61,7 @@ export default function MenuList() {
 
   return (
     <div className="menu-container">
-
+      <h2>Twój różaniec</h2>
       <PartSelector
         parts={Object.keys(mysteries)}
         partNames={partNames}
