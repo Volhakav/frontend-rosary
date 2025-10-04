@@ -51,8 +51,9 @@ export default function DayDetails() {
   }, [part, secret, dayId])
 
   useEffect(() => {
+    setShowTaskContent(false)
     fetchDayData()
-  }, [])
+  }, [dayId, secret, part])
 
   const getYouTubeEmbedUrl = useCallback((url) => {
     if (!url) return "";
