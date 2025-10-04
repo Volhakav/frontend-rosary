@@ -50,8 +50,9 @@ export default function DayDetails() {
     }
   }, [part, secret, dayId])
 
-  useEffect(() => {
+   useEffect(() => {
     setShowTaskContent(false)
+    setLoading(true)
     fetchDayData()
   }, [dayId, secret, part])
 
