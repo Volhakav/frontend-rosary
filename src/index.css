@@ -1426,6 +1426,24 @@ button:hover {
   transform: translateY(0);
 }
 
+/* style for rose img*/
+.daily-thought {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+.daily-thought-icon {
+  width: 25px;  
+  height: 25px;
+}
+
+.daily-thought-text {
+  display: inline-block;
+}
+
+
 /* Help button responsiveness */
 @media (max-width: 768px) {
   .help-btn {

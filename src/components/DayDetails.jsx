@@ -1,28 +1,24 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import rozaIcon from "../images/roza.png";
 
 export default function DayDetails() {
   const { part, secret } = useParams();
   const location = useLocation();
 
-  // Limit the day to max 30
   const getValidDayId = (dayOfMonth) => Math.min(dayOfMonth, 30);
-
   const today = new Date();
   const initialDayId = getValidDayId(today.getDate());
 
-  // Day comes either from navigation state or defaults to today's date
   const [dayId, setDayId] = useState(location.state?.dayId || initialDayId);
   const [dayData, setDayData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTaskContent, setShowTaskContent] = useState(false);
 
-  // Reset task content when user changes day, part, or secret
   useEffect(() => {
     setShowTaskContent(false);
   }, [dayId, secret, part]);
 
-  // Reset dayId when part or secret changes, but respect chosen day if passed
   useEffect(() => {
     if (location.state?.dayId) {
       setDayId(location.state.dayId);
@@ -31,43 +27,33 @@ export default function DayDetails() {
     }
   }, [part, secret, location.state]);
 
-  // Fetch day data, optionally with loader
-  const fetchDayData = useCallback(
-    async (showLoader = false) => {
-      if (showLoader) setLoading(true);
+    const fetchDayData = useCallback(async () => {
+    try {
+      const res = await fetch(
+        `https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`
+      )
+      if (!res.ok) throw new Error('Nie udało się pobrać danych dziennych')
 
-      try {
-        const res = await fetch(
-          `https://rosary-backend.onrender.com/posts/${part}/${secret}/${dayId}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch day data");
-
-        const text = await res.text(); // safer than res.json()
-        if (!text) {
-          setDayData(null);
-          return;
-        }
-
-        const data = JSON.parse(text);
-        setDayData(data);
-      } catch (err) {
-        console.error(err);
-        setDayData(null);
-      } finally {
-        if (showLoader) setLoading(false);
+      const text = await res.text() 
+      if (!text) {
+        setDayData(null)
+        return
       }
-    },
-    [part, secret, dayId]
-  );
 
-  // Initial fetch with loader, silent refresh every 60s
+      const data = JSON.parse(text)
+      setDayData(data)
+    } catch (err) {
+      console.error(err)
+      setDayData(null)
+    } finally {
+      setLoading(false)
+    }
+  }, [part, secret, dayId])
+
   useEffect(() => {
-    fetchDayData(true); // first load with loader
-    const interval = setInterval(() => fetchDayData(false), 60000);
-    return () => clearInterval(interval);
-  }, [fetchDayData]);
+    fetchDayData()
+  }, [])
 
-  // Generate YouTube embed link
   const getYouTubeEmbedUrl = useCallback((url) => {
     if (!url) return "";
     let cleanUrl = url.toString().trim().replace("www.youtube.com", "youtube.com");
@@ -87,14 +73,13 @@ export default function DayDetails() {
     return "";
   }, []);
 
-  // Video renderer
   const VideoComponent = ({ item }) => {
     const embedUrl = getYouTubeEmbedUrl(item.value);
     if (!embedUrl)
       return (
         <div className="video-container" id={`video-${item.id}`}>
           <a href={item.value} target="_blank" rel="noopener noreferrer">
-            Open video
+            Otwórz wideo
           </a>
         </div>
       );
@@ -115,7 +100,6 @@ export default function DayDetails() {
     );
   };
 
-  // Generic item renderer
   const renderItem = (item) => {
     let type = item.type;
     if (
@@ -140,7 +124,7 @@ export default function DayDetails() {
             key={item.id}
             className="mystery"
             src={item.value}
-            alt={item.options?.alt || "Image"}
+            alt={item.options?.alt || "Obraz"}
           />
         ) : null;
       case "Video":
@@ -163,8 +147,8 @@ export default function DayDetails() {
     }
   };
 
-  if (loading) return <div className="loading">Loading day...</div>;
-  if (!dayData) return <div className="error">Day not found</div>;
+  if (loading) return <div className="loading">Ładowanie dnia...</div>;
+  if (!dayData) return <div className="error">Dzień nie znaleziony</div>;
 
   const mysteryItems = dayData.data || [];
   const taskItems = dayData.task || [];
@@ -178,10 +162,16 @@ export default function DayDetails() {
         {mysteryItems.map((item, index) => (
           <React.Fragment key={item.id}>
             {renderItem(item)}
-
             {item.type === "Image" &&
               !mysteryItems.slice(0, index).some((i) => i.type === "Image") && (
-                <h3>Dzień {dayData.index}</h3>
+                <>
+                  <h3>Dzień {dayData.index}</h3>
+                  <div className="daily-thought">
+                    <img src={rozaIcon} alt="Róża" className="daily-thought-icon" />
+                    <span className="daily-thought-text">MYŚL DNIA</span>
+                    <img src={rozaIcon} alt="Róża" className="daily-thought-icon" />
+                  </div>
+                </>
               )}
           </React.Fragment>
         ))}
@@ -204,9 +194,7 @@ export default function DayDetails() {
               Zobacz
             </button>
           ) : (
-            <div id="hiddenElement">
-              {taskItems.map((item) => renderItem(item))}
-            </div>
+            <div id="hiddenElement">{taskItems.map((item) => renderItem(item))}</div>
           )}
         </section>
       )}
