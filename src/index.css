@@ -1542,3 +1542,132 @@ button:hover {
     font-family: 'Comfortaa', Arial, sans-serif;
   }
 }
+/*HelpPage - zmiana*/
+.song-container {
+  background: #fffaf7;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 700px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.song-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #8b0000;
+  margin-bottom: 10px;
+}
+
+.song-intro {
+  font-size: 1rem;
+  text-align: justify;
+  margin-bottom: 25px;
+}
+
+.song-decor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.song-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.song-section {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #5c0a0a;
+}
+
+.song-lyrics {
+  line-height: 1.6;
+}
+
+.refrain {
+  font-weight: 600;
+  color: #c0392b;
+  margin-bottom: 20px;
+}
+
+.verse {
+  margin-bottom: 15px;
+}
+.song-description-container {
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  color: #333;
+  font-family: "Georgia", serif;
+  line-height: 1.6;
+}
+.description-container{
+  background: #fffaf7;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 700px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.song-title,
+.description-title {
+  text-align: center;
+  color: #8b0000;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.song-intro {
+  text-align: justify;
+  margin-bottom: 25px;
+}
+
+.song-decor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.song-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.refrain {
+  font-weight: bold;
+  color: #b03a2e;
+  margin-bottom: 15px;
+}
+
+.verse {
+  margin-bottom: 10px;
+}
+
+.description-container {
+  margin-top: 40px;
+}
+
+.description-container a {
+  color: #a52a2a;
+  text-decoration: underline;
+}
+
+.description-container a:hover {
+  color: #c0392b;
+}
+
+.description-container h3 {
+  color: #5a0000;
+  margin-top: 20px;
+}
+
