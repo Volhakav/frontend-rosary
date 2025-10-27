@@ -615,8 +615,6 @@ button:hover {
 
 /* Small phones (below 360px) */
 @media (max-width: 359px) {
-
-  
   .daily-box,
   .rosary-box,
   .quote-of-the-day,
@@ -1669,5 +1667,16 @@ button:hover {
 .description-container h3 {
   color: #5a0000;
   margin-top: 20px;
+}
+.rosary-icons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+.rosary-icon{
+  width: 30px;
+  height: 30px;
 }
 

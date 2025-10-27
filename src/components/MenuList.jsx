@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import PartSelector from "./PartSelector";
 import SecretSelector from "./SecretSelector";
 import DaysList from "./DaysList";
+
+import Icon1 from "../images/icon1.png";
+import Icon2 from "../images/icon2.png";
 import { useNavigate, useParams } from "react-router-dom";
+
 
 const mysteries = {
   radosna: ["Zwiastowanie", "Nawiedzenie św. Elżbiety", "Narodzenie Jezusa", "Ofiarowanie w świątyni", "Odnalezienie Jezusa w świątyni"],
@@ -61,7 +65,12 @@ export default function MenuList() {
 
   return (
     <div className="menu-container">
-      <h2>Twój różaniec</h2>
+      <div className="rosary-icons">
+        <img src={Icon1} alt="Ikona 1" className="rosary-icon" />
+        <h2>Twój różaniec</h2>
+        <img src={Icon2} alt="Ikonka 2" className="rosary-icon" />
+      </div>
+      
       <PartSelector
         parts={Object.keys(mysteries)}
         partNames={partNames}
