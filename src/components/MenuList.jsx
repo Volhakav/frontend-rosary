@@ -66,7 +66,7 @@ export default function MenuList() {
   return (
     <div className="menu-container">
       <div className="rosary-icons">
-        <img src={Icon1} alt="Ikona 1" className="rosary-icon" />
+        <img src={Icon1} alt="Ikona 1" className="rosary-icon" id="mary" />
         <h2>Mój różaniec</h2>
         <img src={Icon2} alt="Ikonka 2" className="rosary-icon" />
       </div>

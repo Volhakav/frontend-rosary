@@ -1681,3 +1681,6 @@ button:hover {
   opacity: 0.5;
 }
 
+#mary {
+  transform: translate(-30%, -25%) scale(1.6);
+}
