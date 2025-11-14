@@ -156,10 +156,24 @@ export default function DayDetails() {
   const taskItems = dayData.task || [];
   const quoteItems = dayData.quote || [];
 
+    const title = () => {
+      switch (part) {
+        case 'radosna':
+          return `Tajemnice radosne`
+        case 'światła':
+          return `Tajemnice światła`
+        case 'bolesna':
+          return `Tajemnice bolesne`
+        case 'chwalebna':
+          return `Tajemnice chwalebne`
+        default:
+      }
+    }
+
   return (
     <div className="day-details-container">
       <section className="rosary-box">
-        <h2>{dayData.title}</h2>
+        <h2>{title()}</h2>
 
         {mysteryItems.map((item, index) => (
           <React.Fragment key={item.id}>
