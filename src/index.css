@@ -424,7 +424,6 @@ button:hover {
   border-radius: 0.5rem;
   background-color: #fff8dc;
   font-size: 1rem;
-
   margin: 0.5rem auto;
   color: #333;
   appearance: menulist;
@@ -432,7 +431,7 @@ button:hover {
   display: block;
   white-space: normal;
   word-wrap: break-word;
-  min-height: 44px; /* Minimum height for touch devices */
+  min-height: 44px; 
 }
 
 .menu-select option {
@@ -559,10 +558,10 @@ button:hover {
 .calendar-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 40px); /* 5 columns of 40px */
-  column-gap: 0.3rem; /* Only space between columns */
-  row-gap: 0.5rem;    /* Space between rows */
-  justify-content: center; /* Center the grid */
+  grid-template-columns: repeat(5, 40px); 
+  column-gap: 0.3rem;
+  row-gap: 0.5rem;   
+  justify-content: center; 
 }
 .day-button {
   width: 40px;
@@ -618,7 +617,9 @@ button:hover {
   .daily-box,
   .rosary-box,
   .quote-of-the-day,
-  .quiz-section {
+  .quiz-section,
+  .song-container,
+  .description-container {
     padding: 0.9rem;
     font-size: 1rem;
     margin: 0.25rem 0;
@@ -656,7 +657,9 @@ button:hover {
   .daily-box,
   .rosary-box,
   .quote-of-the-day,
-  .quiz-section {
+  .quiz-section,
+  .song-container,
+  .description-container {
     padding: 1rem;
     font-size: 1.05rem;
   }
@@ -673,7 +676,9 @@ button:hover {
   .daily-box,
   .rosary-box,
   .quote-of-the-day,
-  .quiz-section {
+  .quiz-section,
+  .song-container,
+  .description-container {
     padding: 1.5rem;
     font-size: 1.1rem;
   }
@@ -796,7 +801,9 @@ button:hover {
   .daily-box,
   .rosary-box,
   .quote-of-the-day,
-  .quiz-section {
+  .quiz-section,
+  .song-container,
+  .description-container {
     padding: 0.7rem;
     font-size: 0.95rem;
   }
@@ -838,7 +845,9 @@ button:hover {
 .daily-box,
 .rosary-box,
 .quote-of-the-day,
-.quiz-section {
+.quiz-section,
+.song-container,
+.description-container {
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
@@ -864,7 +873,9 @@ button:hover {
 .daily-box,
 .rosary-box,
 .quote-of-the-day,
-.quiz-section {
+.quiz-section,
+.song-container,
+.description-container {
   animation: fadeIn 0.5s ease-out;
 }
 
@@ -1545,7 +1556,6 @@ button:hover {
   background: #fffaf7;
   border-radius: 20px;
   padding: 20px;
-  margin: 20px auto;
   max-width: 700px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -1571,7 +1581,14 @@ button:hover {
   gap: 12px;
   margin-bottom: 15px;
 }
+.mystery-song{
+  width: 100%;
+ 
+  height: auto;
+  margin: 0.75rem auto;
+  border-radius: 0.5rem;
 
+}
 .song-icon {
   width: 40px;
   height: 40px;
@@ -1598,8 +1615,6 @@ button:hover {
 }
 .song-description-container {
   border-radius: 20px;
-  padding: 20px;
-  margin: 20px auto;
   max-width: 800px;
   color: #333;
   font-family: "Georgia", serif;
@@ -1609,7 +1624,6 @@ button:hover {
   background: #fffaf7;
   border-radius: 20px;
   padding: 20px;
-  margin: 20px auto;
   max-width: 700px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -1676,9 +1690,8 @@ button:hover {
   font-size: 1.2rem;
 }
 .rosary-icon{
-  width: 40px;
-  height: 40px;
-  opacity: 0.5;
+  width: 35px;
+  height: 35px;
 }
 
 #mary {

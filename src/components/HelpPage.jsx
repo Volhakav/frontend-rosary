@@ -163,7 +163,7 @@ export default function HelpPage(){
           </div>
         </div>
         <div className="song-image">
-          <img src={Piosenka} alt="Piosenka"></img>
+          <img src={Piosenka} className="mystery-song" alt="Piosenka"></img>
         </div>
         <p>Poniżej ten śpiew w wykonaniu zespołu ZIARENKO z parafii Podstolice.</p>
         <a href="https://youtu.be/DVb97zGXmLs">https://youtu.be/DVb97zGXmLs</a>
@@ -210,7 +210,7 @@ export default function HelpPage(){
           </a>
           .
         </p>
-        <img src={Modlitwa} alt="Modlitwa"></img>
+        <img src={Modlitwa} className="mystery-song" alt="Modlitwa"></img>
 
         <h3>Pomoce dla dzieci – drukowane</h3>
         <p>
@@ -238,7 +238,7 @@ export default function HelpPage(){
             .
           </li>
         </ul>
-        <img src={Pomoc} alt="Pomoc"></img>
+        <img src={Pomoc} className="mystery-song" alt="Pomoc"></img>
 
         <h3>Pomoce dla dzieci – internetowe</h3>
         <p>
