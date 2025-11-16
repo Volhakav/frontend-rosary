@@ -922,10 +922,10 @@ button:hover {
   }
 }
 
-/* Help page styles - RESPONSIVENESS */
+/* Help page styles - RESPONSIVENESS 
 .help-page {
   padding: 2rem;
-  max-width: 1000px;
+ 
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -1044,9 +1044,9 @@ button:hover {
   border-radius: 0.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border: 1px solid #e6d6b8;
-}
+} /*
 
-/* Hover effects */
+/* Hover effects 
 .help-item {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -1056,7 +1056,7 @@ button:hover {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
 }
 
-/* Loading and error states */
+/* Loading and error states 
 .help-loading,
 .help-error {
   margin: 0 auto;
@@ -1082,7 +1082,7 @@ button:hover {
   color: #c1774c;
   background-color: #fff0e0;
   border-color: #e6c6a8;
-}
+} */
 
 /* MEDIA QUERIES FOR RESPONSIVENESS - same as on the main page */
 
@@ -1179,6 +1179,7 @@ button:hover {
     max-width: 100%;
   }
 }
+
 
 /* Tablets in landscape and small laptops (768px - 991px) */
 @media (min-width: 768px) and (max-width: 991px) {
@@ -1583,7 +1584,6 @@ button:hover {
 }
 .mystery-song{
   width: 100%;
- 
   height: auto;
   margin: 0.75rem auto;
   border-radius: 0.5rem;
@@ -1695,5 +1695,5 @@ button:hover {
 }
 
 #mary {
-  transform: translate(-30%, -25%) scale(1.6);
+  transform: scale(1.6);
 }

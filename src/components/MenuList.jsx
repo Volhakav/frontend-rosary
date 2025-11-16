@@ -4,7 +4,6 @@ import SecretSelector from "./SecretSelector";
 import DaysList from "./DaysList";
 
 import Icon1 from "../images/icon1.png";
-import Icon2 from "../images/icon2.png";
 import { useNavigate, useParams } from "react-router-dom";
 
 
@@ -68,7 +67,6 @@ export default function MenuList() {
       <div className="rosary-icons">
         <img src={Icon1} alt="Ikona 1" className="rosary-icon" id="mary" />
         <h2>Mój różaniec</h2>
-        <img src={Icon2} alt="Ikonka 2" className="rosary-icon" />
       </div>
       
       <PartSelector
