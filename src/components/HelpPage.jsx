@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Piosenka from "../images/Piosenka.png"
-import Modlitwa from "../images/Modlitwa_R.png"
-import Pomoc from "../images/Pomoc.png"
+import Modlitwa from "../images/Modlitwa_Roz.png"
+import Pomoc from "../images/Skoroszyt.png"
 /*
 const HelpPage = () => {
   const [helpData, setHelpData] = useState(null);
